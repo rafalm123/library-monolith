@@ -12,15 +12,15 @@ import java.util.stream.StreamSupport;
 import static java.util.Arrays.stream;
 
 @Service
-public class BookService implements BookServiceI{
+public class BookService{
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    public Iterable<Book> listBooks(){
+    public List<Book> listBooks(){
         return bookRepository.findAll();
     }
 
@@ -28,7 +28,7 @@ public class BookService implements BookServiceI{
         return bookRepository.save(book);
     }
 
-    public Iterable<Book> saveList(List<Book> listOfBooks){
+    public List<Book> saveList(List<Book> listOfBooks){
         return bookRepository.saveAll(listOfBooks);
     }
 
