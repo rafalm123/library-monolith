@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-02-12T19:20:55.702Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="b8fWFwgBKd1TATO5APb6" version="20.8.20" type="gitlab">
+<mxfile host="app.diagrams.net" modified="2023-02-13T05:07:31.400Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="FyWL47nNou7vQAtE-xhq" version="20.8.20" type="gitlab">
   <diagram name="Strona-1" id="45cgaNDauSYpYsO7GjBS">
     <mxGraphModel dx="3375" dy="2829" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
@@ -349,7 +349,7 @@
           <mxGeometry x="-875" y="-1500" width="84" height="39" as="geometry" />
         </mxCell>
         <mxCell id="_xE9Mm1DWPLD3zz57Y3J-42" value="book_copy_version" style="shape=table;startSize=24;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;shadow=1;strokeColor=#FFFFFF;fillColor=default;" vertex="1" parent="1">
-          <mxGeometry x="-423" y="-1444.5" width="385" height="199.5" as="geometry" />
+          <mxGeometry x="-423" y="-1444.5" width="385" height="122.5" as="geometry" />
         </mxCell>
         <mxCell id="_xE9Mm1DWPLD3zz57Y3J-43" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;shadow=1;strokeColor=#FFFFFF;" vertex="1" parent="_xE9Mm1DWPLD3zz57Y3J-42">
           <mxGeometry y="24" width="385" height="27" as="geometry" />
@@ -489,7 +489,7 @@
         <mxCell id="_xE9Mm1DWPLD3zz57Y3J-89" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.003;entryY=0.172;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#000000;strokeWidth=1;endArrow=none;endFill=0;endSize=20;" edge="1" parent="1" source="_xE9Mm1DWPLD3zz57Y3J-80" target="_xE9Mm1DWPLD3zz57Y3J-59">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="_xE9Mm1DWPLD3zz57Y3J-90" value="user_book_registry" style="shape=table;startSize=24;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;shadow=1;strokeColor=#FFFFFF;fillColor=default;" vertex="1" parent="1">
+        <mxCell id="_xE9Mm1DWPLD3zz57Y3J-90" value="user_book_registration" style="shape=table;startSize=24;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;shadow=1;strokeColor=#FFFFFF;fillColor=default;" vertex="1" parent="1">
           <mxGeometry x="-832.5" y="-1074" width="357" height="184.12" as="geometry" />
         </mxCell>
         <mxCell id="_xE9Mm1DWPLD3zz57Y3J-95" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;shadow=1;strokeColor=#FFFFFF;" vertex="1" parent="_xE9Mm1DWPLD3zz57Y3J-90">
