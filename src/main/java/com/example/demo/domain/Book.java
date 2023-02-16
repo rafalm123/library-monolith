@@ -25,10 +25,10 @@ public class Book {
     @Column(name = "book_uuid", nullable = false)
     private UUID bookUuid;
     @Basic
-    @Column(name = "author", nullable = false, length = -1)
+    @Column(name = "author", nullable = false, length = 50)
     private String author;
     @Basic
-    @Column(name = "title", nullable = false, length = -1)
+    @Column(name = "title", nullable = false, length = 50)
     private String title;
     @Basic
     @Column(name = "pages", nullable = false)

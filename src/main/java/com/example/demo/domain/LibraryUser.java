@@ -25,7 +25,7 @@ public class LibraryUser {
     @Column(name = "creation_time", nullable = false)
     private Timestamp creationTime;
     @Basic
-    @Column(name = "user_type", nullable = false, length = -1)
+    @Column(name = "user_type", nullable = false, length = 50)
     private String userType;
 
     public LibraryUser(Timestamp creationTime, String userType) {

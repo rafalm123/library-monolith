@@ -16,16 +16,16 @@ public class LibraryUserVersion {
     @Column(name = "user_id", nullable = true, insertable = false, updatable = false)
     private Long userId;
     @Basic
-    @Column(name = "nickname", nullable = false, length = -1)
+    @Column(name = "nickname", nullable = false, length = 50)
     private String nickname;
     @Basic
-    @Column(name = "email", nullable = false, length = -1)
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
     @Basic
-    @Column(name = "address", nullable = false, length = -1)
+    @Column(name = "address", nullable = false, length = 50)
     private String address;
     @Basic
-    @Column(name = "postal_code", nullable = false, length = -1)
+    @Column(name = "postal_code", nullable = false, length = 50)
     private String postalCode;
     @Basic
     @Column(name = "debt", nullable = true)

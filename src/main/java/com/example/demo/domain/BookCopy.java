@@ -24,10 +24,10 @@ public class BookCopy {
     @Column(name = "book_copy_uuid", nullable = false)
     private UUID bookCopyUuid;
     @Basic
-    @Column(name = "copy_language", nullable = false, length = -1)
+    @Column(name = "copy_language", nullable = false, length = 50)
     private String copyLanguage;
     @Basic
-    @Column(name = "cover_type", nullable = false, length = -1)
+    @Column(name = "cover_type", nullable = false, length = 50)
     private String coverType;
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
