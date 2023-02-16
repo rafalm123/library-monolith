@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/books")
@@ -22,7 +20,7 @@ public class BooksController {
     }
 
     @GetMapping
-    public Iterable<Book> getListOfBooks() {
+    public List<Book> getListOfBooks() {
         return bookService.listBooks();
     }
 

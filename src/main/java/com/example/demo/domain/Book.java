@@ -1,39 +1,43 @@
 package com.example.demo.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
-@Table(name= "Books")
+@Table(name = "book", schema = "library", catalog = "library")
 public class Book {
-
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id", nullable = false)
     private Long id;
+    @Basic
+    @Column(name = "isbn", nullable = false)
+    private Long isbn;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "book_uuid", nullable = false)
+    private UUID bookUuid;
+    @Basic
+    @Column(name = "author", nullable = false, length = -1)
     private String author;
-    private String country;
-    @Column(unique = true)
-    private String imageLink;
-    private String language;
-//    @Column(unique = true)
-    private String link;
-    private Long pages;
+    @Basic
+    @Column(name = "title", nullable = false, length = -1)
     private String title;
-    private Long year;
-
-    public Book(String author, String country, String imageLink, String language, String link, Long pages, String title, Long year) {
-        this.author = author;
-        this.country = country;
-        this.imageLink = imageLink;
-        this.language = language;
-        this.link = link;
-        this.pages = pages;
-        this.title = title;
-        this.year = year;
-    }
-
-    public Book() {
-    }
+    @Basic
+    @Column(name = "pages", nullable = false)
+    private Long pages;
+    @Basic
+    @Column(name = "release_year", nullable = false)
+    private Long releaseYear;
+    @OneToMany(mappedBy = "bookByBookId")
+    private Collection<BookCopy> bookCopiesById;
 
     public Long getId() {
         return id;
@@ -41,6 +45,22 @@ public class Book {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
+
+    public UUID getBookUuid() {
+        return bookUuid;
+    }
+
+    public void setBookUuid(UUID bookUuid) {
+        this.bookUuid = bookUuid;
     }
 
     public String getAuthor() {
@@ -51,36 +71,12 @@ public class Book {
         this.author = author;
     }
 
-    public String getCountry() {
-        return country;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getImageLink() {
-        return imageLink;
-    }
-
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getPages() {
@@ -91,44 +87,44 @@ public class Book {
         this.pages = pages;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setTitle(String title) {
+    public void setReleaseYear(Long releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public Book() {
+    }
+
+    public Book(Long isbn, String author, String title, Long pages, Long releaseYear, Collection<BookCopy> bookCopiesById) {
+        this.isbn = isbn;
+        this.author = author;
         this.title = title;
+        this.pages = pages;
+        this.releaseYear = releaseYear;
+        this.bookCopiesById = bookCopiesById;
     }
-
-    public Long getYear() {
-        return year;
-    }
-
-    public void setYear(Long yearOfRelease) {
-        this.year = yearOfRelease;
-    }
-
-    @Override
-        public String toString() {
-            return "Author: " + author +
-                    ", Country: " + country +
-                    ", Image Link: " + imageLink +
-                    ", Language: " + language +
-                    ", Link: " + link + ", "+
-                    "Pages: " + pages +
-                    ", Title: " + title +
-                    ", Year: " + year + "\n";
-        }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(imageLink, book.imageLink) && Objects.equals(link, book.link);
+        Book that = (Book) o;
+        return id.equals(that.id) && isbn.equals(that.isbn) && bookUuid.equals(that.bookUuid) && author.equals(that.author) && title.equals(that.title) && pages.equals(that.pages) && releaseYear.equals(that.releaseYear);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(author, country, imageLink, language, link, pages, title, year);
+        return Objects.hash(id, isbn, bookUuid, author, title, pages, releaseYear);
+    }
+
+    public Collection<BookCopy> getBookCopiesById() {
+        return bookCopiesById;
+    }
+
+    public void setBookCopiesById(Collection<BookCopy> bookCopiesById) {
+        this.bookCopiesById = bookCopiesById;
     }
 }
