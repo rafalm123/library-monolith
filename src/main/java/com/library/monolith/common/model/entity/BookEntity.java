@@ -41,6 +41,6 @@ public class BookEntity {
     @Basic
     @Column(name = "release_year", nullable = false)
     private Long releaseYear;
-    @OneToMany(mappedBy = "bookByBookId")
+    @OneToMany(mappedBy = "bookByBookIdEntity")
     private Collection<BookCopyEntity> bookCopiesById;
 }

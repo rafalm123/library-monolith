@@ -5,7 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
+
+//powtórzenie listy registry w bookcopyentity i libraryuser entity - jakas nowa klasa?
 
 @Data
 @NoArgsConstructor
@@ -32,5 +35,8 @@ public class LibraryUserEntity {
     @Basic
     @Column(name = "user_type", nullable = false, length = 50)
     private String userType;
-
+    @ManyToMany(mappedBy = "users")
+    private List<UserBookRegistryEntity> registry;
+    @OneToMany(mappedBy = "libraryUserByUserIdEntity")
+    private List<LibraryUserVersionEntity> version;
 }

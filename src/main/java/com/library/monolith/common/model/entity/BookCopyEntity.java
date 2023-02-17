@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -37,4 +39,8 @@ public class BookCopyEntity {
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private BookEntity bookByBookIdEntity;
+    @OneToMany(mappedBy = "bookCopyByBookCopyIdEntity")
+    private List<BookCopyVersionEntity> bookCopyVersion;
+    @ManyToMany(mappedBy = "copies")
+    private List<UserBookRegistryEntity> registry;
 }

@@ -5,6 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -19,12 +21,20 @@ public class UserBookRegistryEntity {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-    @Basic
-    @Column(name = "user_id", insertable = false, updatable = false)
-    private Long userId;
-    @Basic
-    @Column(name = "book_copy_id", insertable = false, updatable = false)
-    private Long bookCopyId;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_book_registry_book_copy",
+            joinColumns = @JoinColumn(name = "user_book_registry_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_copy_id")
+    )
+    private List<BookCopyEntity> copies = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_book_registry_library_user",
+            joinColumns = @JoinColumn(name = "user_book_registry_id"),
+            inverseJoinColumns = @JoinColumn(name = "library_user_id")
+    )
+    private List<LibraryUserEntity> users = new ArrayList<>();
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
