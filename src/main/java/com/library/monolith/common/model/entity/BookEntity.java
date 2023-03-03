@@ -18,12 +18,13 @@ public class BookEntity {
     @Id
     private Long id;
     private Long isbn;
+    @Column(unique = true)
     @GeneratedValue(generator = "UUID")
     private UUID bookUuid;
     private String author;
     private String title;
     private Long pages;
     private Long releaseYear;
-    @OneToMany(mappedBy = "bookByBookIdEntity")
-    private Collection<BookCopyEntity> bookCopiesById;
+    @OneToMany(mappedBy = "book")
+    private Collection<BookCopyEntity> bookCopies;
 }

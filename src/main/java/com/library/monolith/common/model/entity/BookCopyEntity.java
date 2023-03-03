@@ -24,7 +24,7 @@ public class BookCopyEntity {
     private String coverType;
     @ManyToOne
     @JoinColumn(name = "book_entity_id", referencedColumnName = "id")
-    private BookEntity bookByBookIdEntity;
+    private BookEntity book;
     @OneToMany(mappedBy = "bookCopyByBookCopyIdEntity")
     private List<BookCopyVersionEntity> bookCopyVersion;
     @ManyToMany(mappedBy = "copies")
