@@ -1,4 +1,4 @@
-docker run --name libraryDb -e POSTGRES_PASSWORD=postgres POSTGRES_USER=postrgres -d -p5432:5432 postgres
+docker run --name libraryDb -e POSTGRES_PASSWORD=postgres POSTGRES_USER=postgres -d -p5432:5432 postgres
 
 # --name self explanatory
 # -e environment variables

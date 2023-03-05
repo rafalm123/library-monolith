@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.noContent;
 public class BookService {
     private final BookRepository bookRepository;
 
-    public ResponseEntity<BookDto> getBookByUuid(UUID uuid) {
+    public Optional<BookDto> getBookByUuid(UUID uuid) {
 
         //tutaj zrób konwersję jednej lub więcej encji (w zależności od potrzeb) na obiekt BookDto
         //zrobić do tego osobną klasę- konwerter której zapodasz encję lub encje i która zwróci DTO

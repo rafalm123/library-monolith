@@ -2,6 +2,7 @@ package com.library.monolith.common.controller;
 
 import com.library.monolith.common.model.entity.BookEntity;
 import com.library.monolith.common.repository.BookRepository;
+import com.library.monolith.common.service.BookDto;
 import com.library.monolith.common.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,7 @@ public class BookController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<BookDto> getBookByUUID(@PathVariable UUID uuid) {
-        if (bookService.getBookByUuid(uuid).isPresent()) {
-            return new ResponseEntity<>(bookService.getBookByUuid(uuid).get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return bookService.getBookByUuid(uuid).map
     }
 }
 
