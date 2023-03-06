@@ -1,10 +1,8 @@
 package com.library.monolith.common.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode
-public class BookCopyEntity {
+public class ReleaseCopyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -23,10 +21,8 @@ public class BookCopyEntity {
     private String copyLanguage;
     private String coverType;
     @ManyToOne
-    @JoinColumn(name = "book_entity_id", referencedColumnName = "id")
-    private BookEntity book;
-    @OneToMany(mappedBy = "bookCopyByBookCopyIdEntity")
-    private List<BookCopyVersionEntity> bookCopyVersion;
-    @ManyToMany(mappedBy = "copies")
-    private List<UserBookRegistryEntity> registry;
+    @JoinColumn(name = "book_release_entity_id",referencedColumnName = "id")
+    private BookReleaseEntity bookReleaseById;
+    @OneToMany
+    private List<ReleaseCopyVersionEntity> versions;
 }

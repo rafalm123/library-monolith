@@ -25,13 +25,15 @@ public class BookService {
         //zrobić do tego osobną klasę- konwerter której zapodasz encję lub encje i która zwróci DTO
         //jeśli będzie użyta tylko jedna encja, użyj mapstructa
 
-        val book = bookRepository.findBookByBookUuid(uuid);
-        if(book.isEmpty()) {
-            reponse entity no content
-        };
+        return book
 
-
-        ResponseEntity.ok(book.get());
+//        val book = bookRepository.findBookByBookUuid(uuid);
+//        if(book.isEmpty()) {
+//            reponse entity no content
+//        };
+//
+//
+//        ResponseEntity.ok(book.get());
 
     }
 }

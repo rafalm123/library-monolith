@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class BookCopyVersionEntity {
+public class ReleaseCopyVersionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -19,6 +19,6 @@ public class BookCopyVersionEntity {
     private String status;
     private String notes;
     @ManyToOne
-    @JoinColumn(name = "book_copy_entity_id", referencedColumnName = "id")
-    private BookCopyEntity bookCopyByBookCopyIdEntity;
+    @JoinColumn(name = "release_copy_entity_id", referencedColumnName = "id")
+    private ReleaseCopyEntity bookCopyByReleaseCopyId;
 }

@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,14 +18,12 @@ public class BookEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    private Long isbn;
     @Column(unique = true)
     @GeneratedValue(generator = "UUID")
-    private UUID bookUuid;
+    private UUID book_uuid;
     private String author;
     private String title;
-    private Long pages;
-    private Long releaseYear;
+    private Long publish_year;
     @OneToMany(mappedBy = "book")
-    private Collection<BookCopyEntity> bookCopies;
+    private List<BookReleaseEntity> bookReleases;
 }

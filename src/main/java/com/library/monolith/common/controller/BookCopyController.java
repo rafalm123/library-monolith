@@ -1,10 +1,8 @@
 package com.library.monolith.common.controller;
 
-import com.library.monolith.common.model.entity.BookCopyEntity;
-import com.library.monolith.common.model.entity.BookEntity;
+import com.library.monolith.common.model.entity.ReleaseCopyEntity;
 import com.library.monolith.common.repository.BookCopyRepository;
 import com.library.monolith.common.service.BookCopyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +27,12 @@ public class BookCopyController {
 
 
     @GetMapping
-    public List<BookCopyEntity> getListOfCopies(@PathVariable UUID bookUuid) {
+    public List<ReleaseCopyEntity> getListOfCopies(@PathVariable UUID bookUuid) {
         return bookCopyService.listCopies();
     }
 
     @GetMapping("/{copyUuid}")
-    public ResponseEntity<BookCopyEntity> getCopyByUuid(@PathVariable UUID copyUuid) {
+    public ResponseEntity<ReleaseCopyEntity> getCopyByUuid(@PathVariable UUID copyUuid) {
         if (bookCopyService.getCopyByUuid(copyUuid).isPresent()) {
             return new ResponseEntity<>(bookCopyService.getCopyByUuid(copyUuid).get(), HttpStatus.OK);
         } else {
@@ -42,14 +40,14 @@ public class BookCopyController {
         }
     }
     @PostMapping
-    public ResponseEntity<BookCopyEntity> addCopy(@RequestBody BookCopyEntity bookCopyEntity, @PathVariable UUID bookUuid) {
-        Optional<BookCopyEntity> existCopy = bookCopyRepository
-                .findBookCopyByBookCopyUuid(bookCopyEntity.getBookCopyUuid());
+    public ResponseEntity<ReleaseCopyEntity> addCopy(@RequestBody ReleaseCopyEntity releaseCopyEntity, @PathVariable UUID bookUuid) {
+        Optional<ReleaseCopyEntity> existCopy = bookCopyRepository
+                .findBookCopyByBookCopyUuid(releaseCopyEntity.getBookCopyUuid());
 
         if (existCopy.isPresent()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        BookCopyEntity saveObj = bookCopyService.saveCopy(bookCopyEntity);
+        ReleaseCopyEntity saveObj = bookCopyService.saveCopy(releaseCopyEntity);
         if (saveObj!= null) {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
@@ -58,8 +56,8 @@ public class BookCopyController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<BookCopyEntity> modifyCopy(@PathVariable UUID uuid, @RequestBody BookCopyEntity updatedCopy){
-        Optional<BookCopyEntity> copy = bookCopyService.getCopyByUuid(uuid);
+    public ResponseEntity<ReleaseCopyEntity> modifyCopy(@PathVariable UUID uuid, @RequestBody ReleaseCopyEntity updatedCopy){
+        Optional<ReleaseCopyEntity> copy = bookCopyService.getCopyByUuid(uuid);
         if (copy.isPresent()){
             bookCopyService.removeCopy(getCopyByUuid(uuid).getBody());
             bookCopyService.saveCopy(updatedCopy);
@@ -69,8 +67,8 @@ public class BookCopyController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<BookCopyEntity> removeBook(@PathVariable UUID uuid){
-        Optional<BookCopyEntity> copy = bookCopyService.getCopyByUuid(uuid);
+    public ResponseEntity<ReleaseCopyEntity> removeBook(@PathVariable UUID uuid){
+        Optional<ReleaseCopyEntity> copy = bookCopyService.getCopyByUuid(uuid);
         if (copy.isPresent()){
             bookCopyService.removeCopy(getCopyByUuid(uuid).getBody());
             return new ResponseEntity<>(HttpStatus.OK);

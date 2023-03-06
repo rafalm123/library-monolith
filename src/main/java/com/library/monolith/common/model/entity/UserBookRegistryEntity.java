@@ -1,7 +1,6 @@
 package com.library.monolith.common.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -23,7 +22,7 @@ public class UserBookRegistryEntity {
             joinColumns = {@JoinColumn(name = "user_book_registry_entity_id")},
             inverseJoinColumns = @JoinColumn(name = "book_copy_entity_id")
     )
-    private List<BookCopyEntity> copies = new ArrayList<>();
+    private List<ReleaseCopyEntity> copies = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_book_registry_entity_library_user_entity",

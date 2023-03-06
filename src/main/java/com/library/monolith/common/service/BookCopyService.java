@@ -1,7 +1,6 @@
 package com.library.monolith.common.service;
 
-import com.library.monolith.common.model.entity.BookCopyEntity;
-import com.library.monolith.common.model.entity.BookEntity;
+import com.library.monolith.common.model.entity.ReleaseCopyEntity;
 import com.library.monolith.common.repository.BookCopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,27 +19,27 @@ public class BookCopyService {
         this.bookCopyRepository = bookCopyRepository;
     }
 
-    public List<BookCopyEntity> listCopies(){
+    public List<ReleaseCopyEntity> listCopies(){
         return bookCopyRepository.findAll();
     }
 
-    public Optional<BookCopyEntity> getCopyById(long id) {
+    public Optional<ReleaseCopyEntity> getCopyById(long id) {
         return listCopies().stream()
                 .filter(book -> book.getId().equals(id))
                 .findFirst();
     }
 
-    public Optional<BookCopyEntity> getCopyByUuid(UUID uuid) {
+    public Optional<ReleaseCopyEntity> getCopyByUuid(UUID uuid) {
         return listCopies().stream()
                 .filter(book -> book.getBookCopyUuid().equals(uuid))
                 .findFirst();
     }
 
-    public BookCopyEntity saveCopy(BookCopyEntity bookCopyEntity){
-        return bookCopyRepository.save(bookCopyEntity);
+    public ReleaseCopyEntity saveCopy(ReleaseCopyEntity releaseCopyEntity){
+        return bookCopyRepository.save(releaseCopyEntity);
     }
 
-    public void removeCopy(BookCopyEntity bookCopyEntity){
-        bookCopyRepository.delete(bookCopyEntity);
+    public void removeCopy(ReleaseCopyEntity releaseCopyEntity){
+        bookCopyRepository.delete(releaseCopyEntity);
     }
 }
