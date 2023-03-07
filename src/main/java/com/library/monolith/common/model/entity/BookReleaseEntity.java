@@ -22,9 +22,9 @@ public class BookReleaseEntity {
     private Long isbn;
     @Column(unique = true)
     @GeneratedValue(generator = "UUID")
-    private UUID book_release_uuid;
+    private UUID bookReleaseUuid;
     private Long pages;
-    private Long release_year;
+    private Long publisherReleaseYear;
     private String language;
     @ManyToOne
     @JoinColumn(name = "book_entity_id",referencedColumnName = "id")

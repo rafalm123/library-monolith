@@ -18,7 +18,6 @@ public class ReleaseCopyEntity {
     private Long bookId;
     @GeneratedValue(generator = "UUID")
     private UUID bookCopyUuid;
-    private String copyLanguage;
     private String coverType;
     @ManyToOne
     @JoinColumn(name = "book_release_entity_id",referencedColumnName = "id")

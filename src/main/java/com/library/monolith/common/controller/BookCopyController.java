@@ -1,7 +1,7 @@
 package com.library.monolith.common.controller;
 
 import com.library.monolith.common.model.entity.ReleaseCopyEntity;
-import com.library.monolith.common.repository.BookCopyRepository;
+import com.library.monolith.common.repository.BookReleaseRepository;
 import com.library.monolith.common.service.BookCopyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ import java.util.UUID;
 public class BookCopyController {
 
     private final BookCopyService bookCopyService;
-    private final BookCopyRepository bookCopyRepository;
+    private final BookReleaseRepository bookReleaseRepository;
 
     public BookCopyController(
                               BookCopyService bookCopyService,
-                              BookCopyRepository bookCopyRepository) {
+                              BookReleaseRepository bookReleaseRepository) {
         this.bookCopyService = bookCopyService;
-        this.bookCopyRepository = bookCopyRepository;
+        this.bookReleaseRepository = bookReleaseRepository;
     }
 
 
@@ -41,7 +41,7 @@ public class BookCopyController {
     }
     @PostMapping
     public ResponseEntity<ReleaseCopyEntity> addCopy(@RequestBody ReleaseCopyEntity releaseCopyEntity, @PathVariable UUID bookUuid) {
-        Optional<ReleaseCopyEntity> existCopy = bookCopyRepository
+        Optional<ReleaseCopyEntity> existCopy = bookReleaseRepository
                 .findBookCopyByBookCopyUuid(releaseCopyEntity.getBookCopyUuid());
 
         if (existCopy.isPresent()){

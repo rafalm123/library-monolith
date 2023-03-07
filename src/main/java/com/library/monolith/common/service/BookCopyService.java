@@ -1,7 +1,7 @@
 package com.library.monolith.common.service;
 
 import com.library.monolith.common.model.entity.ReleaseCopyEntity;
-import com.library.monolith.common.repository.BookCopyRepository;
+import com.library.monolith.common.repository.BookReleaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +12,15 @@ import java.util.UUID;
 @Service
 public class BookCopyService {
 
-    private final BookCopyRepository bookCopyRepository;
+    private final BookReleaseRepository bookReleaseRepository;
 
     @Autowired
-    public BookCopyService(BookCopyRepository bookCopyRepository) {
-        this.bookCopyRepository = bookCopyRepository;
+    public BookCopyService(BookReleaseRepository bookReleaseRepository) {
+        this.bookReleaseRepository = bookReleaseRepository;
     }
 
     public List<ReleaseCopyEntity> listCopies(){
-        return bookCopyRepository.findAll();
+        return bookReleaseRepository.findAll();
     }
 
     public Optional<ReleaseCopyEntity> getCopyById(long id) {
@@ -36,10 +36,10 @@ public class BookCopyService {
     }
 
     public ReleaseCopyEntity saveCopy(ReleaseCopyEntity releaseCopyEntity){
-        return bookCopyRepository.save(releaseCopyEntity);
+        return bookReleaseRepository.save(releaseCopyEntity);
     }
 
     public void removeCopy(ReleaseCopyEntity releaseCopyEntity){
-        bookCopyRepository.delete(releaseCopyEntity);
+        bookReleaseRepository.delete(releaseCopyEntity);
     }
 }
