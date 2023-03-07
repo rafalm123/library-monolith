@@ -6,6 +6,7 @@ import com.library.monolith.common.repository.BookReleaseRepository;
 import com.library.monolith.common.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,13 +19,16 @@ public class BookService {
     private final BookReleaseRepository bookReleaseRepository;
     private BookDtoMapper bookDtoMapper;
 
+
     public BookDetailsDTO getBookDTOByReleaseUuid(UUID uuid) {
 
-        Optional<BookReleaseEntity> bookReleaseByBookUuidOptional = bookReleaseRepository.findBookReleaseByBookReleaseUuid(uuid);
+        Optional<BookReleaseEntity> bookReleaseByBookUuidOptional = bookReleaseRepository
+                .findBookReleaseByBookReleaseUuid(uuid);
 
         if (bookReleaseByBookUuidOptional.isPresent()) {
             BookReleaseEntity bookRelease = bookReleaseByBookUuidOptional.get();
-            Optional<BookEntity> bookEntityByIdOptional = bookRepository
+
+        Optional<BookEntity> bookEntityByIdOptional = bookRepository
                     .findBookEntityById(bookRelease.getBookById().getId());
 
             if (bookEntityByIdOptional.isPresent()) {
@@ -32,7 +36,11 @@ public class BookService {
 
                 return bookDtoMapper.dtoMapping(book, bookRelease);
             }
+
         }
-        return null;
+        throw new ResourceNotFoundException(
+                "not found"
+        );
+        }
     }
-}
+
