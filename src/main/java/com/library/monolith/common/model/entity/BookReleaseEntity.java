@@ -16,6 +16,8 @@ import java.util.UUID;
 @Entity
 public class BookReleaseEntity {
 
+
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;

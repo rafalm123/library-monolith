@@ -14,12 +14,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
     private final BookReleaseRepository bookReleaseRepository;
-    private BookDtoMapper bookDtoMapper;
+    private final BookDtoMapper bookDtoMapper;
 
+    public BookService(BookRepository bookRepository, BookReleaseRepository bookReleaseRepository) {
+        this.bookRepository = bookRepository;
+        this.bookReleaseRepository = bookReleaseRepository;
+        this.bookDtoMapper = new BookDtoMapper();
+    }
 
     public BookDetailsDTO getBookDTOByReleaseUuid(UUID uuid) {
 

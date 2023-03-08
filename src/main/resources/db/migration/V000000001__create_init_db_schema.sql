@@ -28,7 +28,7 @@ CREATE TABLE release_copy(
 DROP TABLE IF EXISTS release_copy_version;
 CREATE TABLE release_copy_version(
                                 id BIGSERIAL NOT NULL PRIMARY KEY,
-                                book_copy_id BIGINT REFERENCES book_copy(id),
+                                book_copy_id BIGINT REFERENCES release_copy(id),
                                 start_validity TIMESTAMP NOT NULL,
                                 end_validity TIMESTAMP NOT NULL,
                                 status VARCHAR(15) NOT NULL,
@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS user_book_registry;
 CREATE TABLE user_book_registry(
                                  id BIGSERIAL NOT NULL PRIMARY KEY,
                                  user_id BIGINT REFERENCES library_user(id),
-                                 book_copy_id BIGINT REFERENCES book_copy(id),
+                                 book_copy_id BIGINT REFERENCES release_copy(id),
                                  registry_uuid UUID NOT NULL unique,
                                  created_at TIMESTAMP NOT NULL,
                                  finish_at TIMESTAMP NOT NULL
