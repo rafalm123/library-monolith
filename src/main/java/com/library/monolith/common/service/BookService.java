@@ -2,13 +2,14 @@ package com.library.monolith.common.service;
 
 import com.library.monolith.common.model.entity.BookEntity;
 import com.library.monolith.common.model.entity.BookReleaseEntity;
+import com.library.monolith.common.model.entity.ReleaseCopyEntity;
 import com.library.monolith.common.repository.BookReleaseRepository;
 import com.library.monolith.common.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,20 +28,17 @@ public class BookService {
 
         if (bookReleaseByBookUuidOptional.isPresent()) {
             BookReleaseEntity bookRelease = bookReleaseByBookUuidOptional.get();
-
-        Optional<BookEntity> bookEntityByIdOptional = bookRepository
+            Optional<BookEntity> bookEntityByIdOptional = bookRepository
                     .findBookEntityById(bookRelease.getBookById().getId());
 
             if (bookEntityByIdOptional.isPresent()) {
                 BookEntity book = bookEntityByIdOptional.get();
-
                 return bookDtoMapper.dtoMapping(book, bookRelease);
             }
-
         }
         throw new ResourceNotFoundException(
                 "not found"
         );
-        }
     }
+}
 

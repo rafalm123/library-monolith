@@ -3,9 +3,11 @@ package com.library.monolith.common.controller;
 import com.library.monolith.common.service.BookDetailsDTO;
 import com.library.monolith.common.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
 @RestController
@@ -16,7 +18,13 @@ public class BookController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<BookDetailsDTO> getBookByUUID(@PathVariable UUID uuid) {
-        return bookService.getBookByUuid(uuid).map
+
+        try {
+            BookDetailsDTO bookDTOByReleaseUuid = bookService.getBookDTOByReleaseUuid(uuid);
+            return new ResponseEntity<>(bookDTOByReleaseUuid, HttpStatus.OK);
+        } catch (EntityNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
 
