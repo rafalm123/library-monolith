@@ -3,6 +3,7 @@ package com.library.monolith.common.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,16 +12,24 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode
 @Entity
+@Table(name = "book")
 public class BookEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name="id")
     private Long id;
-    @Column(unique = true)
+    @Column(
+            name = "book_uuid",
+            unique = true
+    )
     @GeneratedValue(generator = "UUID")
     private UUID bookUuid;
+    @Column(name="author")
     private String author;
+    @Column(name="title")
     private String title;
+    @Column(name = "publish_year")
     private Long bookPublicationYear;
-    @OneToMany(mappedBy = "bookById")
-    private List<BookReleaseEntity> releases;
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<BookReleaseEntity> releases = new ArrayList<>();
 }

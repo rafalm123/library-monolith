@@ -14,24 +14,30 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode
 @Entity
+@Table(name="book_release")
 public class BookReleaseEntity {
-
-
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name="id")
     private Long id;
+    @Column(name="isbn")
     private Long isbn;
-    @Column(unique = true)
+    @Column(
+            name = "book_release_uuid",
+            unique = true)
     @GeneratedValue(generator = "UUID")
     private UUID bookReleaseUuid;
+    @Column(name="pages")
     private Long pages;
+    @Column(name="release_year")
     private Long publisherReleaseYear;
+    @Column(name="language")
     private String language;
     @ManyToOne
-    @JoinColumn(name = "book_entity_id",referencedColumnName = "id")
-    private BookEntity bookById;
-    @OneToMany
+    @JoinColumn(name = "book_id",referencedColumnName = "id")
+    private BookEntity book;
+    @OneToMany(mappedBy = "bookRelease",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ReleaseCopyEntity> copies;
 
 

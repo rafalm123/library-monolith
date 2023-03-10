@@ -33,7 +33,7 @@ public class BookService {
         if (bookReleaseByBookUuidOptional.isPresent()) {
             BookReleaseEntity bookRelease = bookReleaseByBookUuidOptional.get();
             Optional<BookEntity> bookEntityByIdOptional = bookRepository
-                    .findBookEntityById(bookRelease.getBookById().getId());
+                    .findBookEntityById(bookRelease.getBook().getId());
 
             if (bookEntityByIdOptional.isPresent()) {
                 BookEntity book = bookEntityByIdOptional.get();

@@ -11,17 +11,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode
+@Table(name = "release_copy")
 public class ReleaseCopyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name="id")
     private Long id;
-    private Long bookId;
     @GeneratedValue(generator = "UUID")
+    @Column(name="release_copy_uuid")
     private UUID bookCopyUuid;
+    @Column(name="cover_type")
     private String coverType;
     @ManyToOne
-    @JoinColumn(name = "book_release_entity_id",referencedColumnName = "id")
-    private BookReleaseEntity bookReleaseById;
-    @OneToMany
+    @JoinColumn(name = "book_release_id",referencedColumnName = "id")
+    private BookReleaseEntity bookRelease;
+    @OneToMany(mappedBy = "releaseCopy",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ReleaseCopyVersionEntity> versions;
 }

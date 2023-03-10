@@ -9,16 +9,21 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "release_copy_version")
 public class ReleaseCopyVersionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name="id")
     private Long id;
-    private Long bookCopyId;
+    @Column(name="start_validity")
     private Timestamp startValidity;
+    @Column(name="end_validity")
     private Timestamp endValidity;
+    @Column(name="status")
     private String status;
+    @Column(name="notes")
     private String notes;
     @ManyToOne
-    @JoinColumn(name = "release_copy_entity_id", referencedColumnName = "id")
-    private ReleaseCopyEntity bookCopyByReleaseCopyId;
+    @JoinColumn(name = "release_copy_id", referencedColumnName = "id")
+    private ReleaseCopyEntity releaseCopy;
 }

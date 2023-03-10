@@ -9,13 +9,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 
 class BookServiceTest {
 
@@ -42,7 +45,7 @@ class BookServiceTest {
         bookRelease.setBookReleaseUuid(uuid);
         BookEntity bookEntity = new BookEntity();
         bookEntity.setId(1L);
-        bookRelease.setBookById(bookEntity);
+        bookRelease.setBook(bookEntity);
         BookDetailsDTO bookDetailsDTO = new BookDetailsDTO();
         //WHEN
         Mockito.when(bookReleaseRepository.findBookReleaseByBookReleaseUuid(uuid))
@@ -56,5 +59,21 @@ class BookServiceTest {
         BookDetailsDTO result = underTest.getBookDTOByReleaseUuid(uuid);
 
         assertEquals(result,bookDetailsDTO);
+    }
+
+    @Test
+    void itShouldThrowWhenBookReleaseNotFound() {
+        //GIVEN
+        UUID uuid = UUID.randomUUID();
+        BookReleaseEntity bookRelease = new BookReleaseEntity();
+        bookRelease.setBookReleaseUuid(uuid);
+        //WHEN
+        given(bookReleaseRepository.findBookReleaseByBookReleaseUuid(uuid))
+                .willReturn(Optional.empty());
+
+        //THEN
+        assertThatThrownBy(() -> underTest.getBookDTOByReleaseUuid(uuid))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("not found");
     }
 }
