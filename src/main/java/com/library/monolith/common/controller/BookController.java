@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +23,17 @@ public class BookController {
         try {
             BookDetailsDTO bookDTOByReleaseUuid = bookService.getBookDTOByReleaseUuid(uuid);
             return new ResponseEntity<>(bookDTOByReleaseUuid, HttpStatus.OK);
+        } catch (EntityNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BookDetailsDTO>> getListOfBooks(){
+
+        try {
+            List<BookDetailsDTO> listOfBooks = bookService.getListOfBooks();
+            return new ResponseEntity<>(listOfBooks,HttpStatus.OK);
         } catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
