@@ -52,11 +52,11 @@ class BookServiceTest {
                 .thenReturn(Optional.of(bookRelease));
         Mockito.when(bookRepository.findBookEntityById(bookEntity.getId()))
                 .thenReturn(Optional.of(bookEntity));
-        Mockito.when(bookDtoMapper.dtoMapping(bookEntity,bookRelease))
+        Mockito.when(bookDtoMapper.toBooksDetailsDto(bookEntity,bookRelease))
                 .thenReturn(bookDetailsDTO);
         //THEN
 
-        BookDetailsDTO result = underTest.getBookDTOByReleaseUuid(uuid);
+        BookDetailsDTO result = underTest.getBookDetailsDto(uuid);
 
         assertEquals(result,bookDetailsDTO);
     }
@@ -72,7 +72,7 @@ class BookServiceTest {
                 .willReturn(Optional.empty());
 
         //THEN
-        assertThatThrownBy(() -> underTest.getBookDTOByReleaseUuid(uuid))
+        assertThatThrownBy(() -> underTest.getBookDetailsDto(uuid))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessageContaining("not found");
     }

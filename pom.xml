@@ -97,6 +97,9 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>
+            LibraryMonolith
+        </finalName>
     </build>
 
 </project>

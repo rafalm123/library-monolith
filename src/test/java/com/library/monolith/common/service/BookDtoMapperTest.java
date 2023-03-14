@@ -4,10 +4,8 @@ import com.library.monolith.common.model.entity.BookEntity;
 import com.library.monolith.common.model.entity.BookReleaseEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BookDtoMapperTest {
 
@@ -45,7 +43,7 @@ class BookDtoMapperTest {
                 bookRelease.getLanguage()
         );
         //WHEN
-        BookDetailsDTO bookDetailsDTO = underTest.dtoMapping(book, bookRelease);
+        BookDetailsDTO bookDetailsDTO = underTest.toBooksDetailsDto(book, bookRelease);
         //THEN
         assertThat(bookDetailsDTO).isEqualTo(bookDto);
     }

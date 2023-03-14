@@ -2,24 +2,19 @@ package com.library.monolith.common.service;
 
 import com.library.monolith.common.model.entity.BookEntity;
 import com.library.monolith.common.model.entity.BookReleaseEntity;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-public class BookDtoMapper implements BookDtoMapperMapStruct{
+@Mapper
+public interface BookDtoMapper {
 
-    public BookDtoMapper() {
-    }
+@Mapping(source = "book.author",target = "author")
+@Mapping(source = "book.title",target = "title")
+@Mapping(source = "book.bookPublicationYear",target = "bookPublicationYear")
+@Mapping(source = "release.pages",target = "pages")
+@Mapping(source = "release.isbn",target = "isbn")
+@Mapping(source = "release.publisherReleaseYear",target = "publisherReleaseYear")
+@Mapping(source = "release.language",target = "language")
+BookDetailsDTO toBooksDetailsDto(BookEntity book, BookReleaseEntity release);
 
-    @Override
-    public BookDetailsDTO dtoMapping(BookEntity book, BookReleaseEntity bookRelease){
-
-            return new BookDetailsDTO(
-                    (book.getAuthor()),
-                    (book.getTitle()),
-                    (book.getBookPublicationYear()),
-                    (bookRelease.getPages()),
-                    (bookRelease.getIsbn()),
-                    (bookRelease.getPublisherReleaseYear()),
-                    (bookRelease.getLanguage())
-            );
-    }
 }

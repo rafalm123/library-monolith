@@ -10,13 +10,3 @@ spring:
     hibernate:
       ddl-auto: validate
 
-# konfiguracja bazy to tylko url i passy
-# twoim zadaniem jest dostarczenie apcje dzialajacej pustej bazy z odpowiednim schematem
-# brak automatyzacji w tym kroku generowalby bledy, ale wlasnie po to mamy flywaya zeby dbal o integralnosc bazy
-# adnotacja "spring-jpa-hibernate-ddla-auto: validate" sprawia ze apka przy starcie sprawdza
-# czy dany schemat bazy sie nie rozjechal z tym co mamy w aplikacji co czesto w pracy developera sie zdarza
-# przez rozjechanie mam na my?li czy encje z aplikacji faktycznie sa odzwierciedleniem schematu bazy
-
-
-##pusta baze postgresowa na dockerze odpalasz komenda w terminalu
-##  docker run --name libraryDb -e POSTGRES_PASSWORD=postgres POSTGRES_USER=postgres -d -p5432:5432 postgres
