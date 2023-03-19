@@ -27,7 +27,7 @@ class BookServiceTest {
     @Mock
     private BookReleaseRepository bookReleaseRepository;
     @Mock
-    private BookDtoMapper bookDtoMapper;
+    private BookDtoDetailsMapper bookDtoDetailsMapper;
 
     private BookService underTest;
 
@@ -52,7 +52,7 @@ class BookServiceTest {
                 .thenReturn(Optional.of(bookRelease));
         Mockito.when(bookRepository.findBookEntityById(bookEntity.getId()))
                 .thenReturn(Optional.of(bookEntity));
-        Mockito.when(bookDtoMapper.toBooksDetailsDto(bookEntity,bookRelease))
+        Mockito.when(bookDtoDetailsMapper.toBookDetailsDto(bookEntity,bookRelease))
                 .thenReturn(bookDetailsDTO);
         //THEN
 

@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class BookDtoMapperTest {
+class BookDtoOverviewMapperTest {
 
     private BookEntity book;
     private BookReleaseEntity bookRelease;
-    private BookDtoMapper underTest;
+    private BookDtoDetailsMapper underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new BookDtoMapper();
+        underTest = new BookDtoDetailsMapper();
     }
 
 
@@ -43,7 +43,7 @@ class BookDtoMapperTest {
                 bookRelease.getLanguage()
         );
         //WHEN
-        BookDetailsDTO bookDetailsDTO = underTest.toBooksDetailsDto(book, bookRelease);
+        BookDetailsDTO bookDetailsDTO = underTest.toBookDetailsDto(book, bookRelease);
         //THEN
         assertThat(bookDetailsDTO).isEqualTo(bookDto);
     }

@@ -1,6 +1,7 @@
 package com.library.monolith.common.controller;
 
 import com.library.monolith.common.service.BookDetailsDTO;
+import com.library.monolith.common.service.BookDtoOverview;
 import com.library.monolith.common.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -29,10 +30,10 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookDetailsDTO>> getListOfBooks(){
+    public ResponseEntity<List<BookDtoOverview>> getListOfBooks(){
 
         try {
-            List<BookDetailsDTO> listOfBooks = bookService.getListOfBooks();
+            List<BookDtoOverview> listOfBooks = bookService.getBooksOverview();
             return new ResponseEntity<>(listOfBooks,HttpStatus.OK);
         } catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

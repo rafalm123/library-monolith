@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper
-public interface BookDtoMapper {
+public interface BookDtoDetailsMapper {
 
 @Mapping(source = "book.author",target = "author")
 @Mapping(source = "book.title",target = "title")
@@ -15,6 +15,6 @@ public interface BookDtoMapper {
 @Mapping(source = "release.isbn",target = "isbn")
 @Mapping(source = "release.publisherReleaseYear",target = "publisherReleaseYear")
 @Mapping(source = "release.language",target = "language")
-BookDetailsDTO toBooksDetailsDto(BookEntity book, BookReleaseEntity release);
+BookDetailsDTO toBookDetailsDto(BookEntity book, BookReleaseEntity release);
 
 }
