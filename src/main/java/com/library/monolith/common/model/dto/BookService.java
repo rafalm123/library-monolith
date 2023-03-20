@@ -1,11 +1,15 @@
-package com.library.monolith.common.service;
+package com.library.monolith.common.model.dto;
 
 import com.library.monolith.common.model.entity.BookEntity;
 import com.library.monolith.common.model.entity.BookReleaseEntity;
 import com.library.monolith.common.repository.BookReleaseRepository;
 import com.library.monolith.common.repository.BookRepository;
+import com.library.monolith.common.mapping.BookDtoDetailsMapper;
+import com.library.monolith.common.mapping.BookDtoOverviewMapper;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -56,9 +60,12 @@ public class BookService {
         );
     }
 
-    public List<BookDtoOverview> getBooksOverview(Pageable pageable) {
+    public List<BookDtoOverview> getBooksOverview(BookOverviewQueryDto bookOverviewQueryDto) {
 
-        Page<BookReleaseEntity> releaseCollection = bookReleaseRepository.findAll(pageable);
+        Page<BookReleaseEntity> releaseCollection = bookReleaseRepository.findAll(
+                Pageable.ofSize(bookOverviewQueryDto.pageSize)
+                        .withPage(bookOverviewQueryDto.page));
+
 
         List<BookDtoOverview> BookOverviewDtos = releaseCollection.stream()
                 .map(release -> bookDtoOverviewMapper.toBookOverviewDto(bookCollection.stream().anyMatch(book ->{
@@ -66,44 +73,14 @@ public class BookService {
                     return book;
                 }), release))
                 .collect(Collectors.toList());
+
+
+
         return BookOverviewDtos;
     }
+
+
 }
-
-
-
-
-//        List<BookDtoOverview> bookDtoOverviews = books.stream()
-//                .map(
-//                        book -> {
-//
-//                            BookDtoOverview bookDtoOverview = new BookDtoOverview();
-//                            releases.stream()
-//                                    .filter(bookRelease -> Objects.equals(bookRelease.getBook().getId(), book.getId()))
-//                                    .findFirst()
-//                                    .ifPresent(
-//                                            bookRelease -> {
-//                                                bookDtoOverview.
-//                                            });
-//
-//                        })
-//                        }
-//
-//        public List<BookDtoOverview> getBooksOverview() {
-//
-//            List<BookReleaseEntity> releases = bookReleaseRepository.findAll();
-//            List<BookEntity> books = bookRepository.findAll();
-//            List<BookDtoOverview> overviews = new ArrayList<>();
-//
-//            for (BookEntity book: books) {
-//
-//
-//                if (book.getId().equals())
-//
-//
-//            }
-//
-//        }
 
 
 

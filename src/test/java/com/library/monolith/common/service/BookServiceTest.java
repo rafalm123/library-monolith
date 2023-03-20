@@ -1,5 +1,8 @@
 package com.library.monolith.common.service;
 
+import com.library.monolith.common.mapping.BookDtoDetailsMapper;
+import com.library.monolith.common.model.dto.BookDetailsDTO;
+import com.library.monolith.common.model.dto.BookService;
 import com.library.monolith.common.model.entity.BookEntity;
 import com.library.monolith.common.model.entity.BookReleaseEntity;
 import com.library.monolith.common.repository.BookReleaseRepository;

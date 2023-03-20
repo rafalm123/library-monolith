@@ -1,5 +1,6 @@
-package com.library.monolith.common.service;
+package com.library.monolith.common.mapping;
 
+import com.library.monolith.common.model.dto.BookDetailsDTO;
 import com.library.monolith.common.model.entity.BookEntity;
 import com.library.monolith.common.model.entity.BookReleaseEntity;
 import org.mapstruct.Mapper;
