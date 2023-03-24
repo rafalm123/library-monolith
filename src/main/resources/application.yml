@@ -3,10 +3,9 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: true
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/postgres'
-    username: 'postgres'
-    password: 'postgres'
+    url: 'jdbc:postgresql://localhost:5432/library'
+    username: 'user'
+    password: 'password'
   jpa:
     hibernate:
       ddl-auto: validate
-

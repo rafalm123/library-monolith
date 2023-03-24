@@ -1,17 +1,14 @@
 package com.library.monolith.common.repository;
 
-import com.library.monolith.common.model.entity.BookEntity;
-import com.library.monolith.common.model.entity.BookReleaseEntity;
+import com.library.monolith.common.model.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface BookRepository extends JpaRepository<BookEntity, Long> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 
-    Optional<BookEntity> findBookByBookUuid(UUID uuid);
+    Optional<Book> findBookEntityById(Long id);
 
-    Optional<BookEntity> findBookEntityById(Long id);
+    Book getBookById(Long id);
 }

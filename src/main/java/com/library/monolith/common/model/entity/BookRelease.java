@@ -15,7 +15,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Entity
 @Table(name="book_release")
-public class BookReleaseEntity {
+public class BookRelease {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -23,22 +23,17 @@ public class BookReleaseEntity {
     private Long id;
     @Column(name="isbn")
     private Long isbn;
-    @Column(
-            name = "book_release_uuid",
-            unique = true)
-    @GeneratedValue(generator = "UUID")
-    private UUID bookReleaseUuid;
     @Column(name="pages")
-    private Long pages;
+    private Integer pages;
     @Column(name="release_year")
-    private Long publisherReleaseYear;
+    private Integer releaseYear;
     @Column(name="language")
     private String language;
     @ManyToOne
     @JoinColumn(name = "book_id",referencedColumnName = "id")
-    private BookEntity book;
+    private Book book;
     @OneToMany(mappedBy = "bookRelease",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ReleaseCopyEntity> copies;
+    private List<ReleaseCopy> copies;
 
 
 }

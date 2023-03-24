@@ -1,11 +1,8 @@
-package com.library.monolith.common.service;
+package com.library.monolith.common.model.dto;
 
-import com.library.monolith.common.model.entity.BookReleaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Optional;
 
 @Data
 @NoArgsConstructor
@@ -14,10 +11,10 @@ public class BookDetailsDTO {
 
     private String author;
     private String title;
-    private Long bookPublicationYear;
-    private Long pages;
+    private Integer bookYear;
+    private Integer pages;
     private Long isbn;
-    private Long publisherReleaseYear;
+    private Integer releaseYear;
     private String language;
 
 }
