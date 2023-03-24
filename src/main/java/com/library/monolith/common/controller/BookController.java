@@ -21,20 +21,8 @@ import java.util.UUID;
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping("/{uuid}")
-    public ResponseEntity<BookDetailsDTO> getBookByUUID(@PathVariable UUID uuid) {
-        try {
-            return new ResponseEntity<>(bookService.getBookDetailsDto(uuid), HttpStatus.OK);
-        } catch (ResourceNotFoundException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<BookDetailsDTO> getBookById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(bookService.getBookDetailsDto(id));
     }
-
-    @GetMapping("/list")
-    public ResponseEntity<List<BookDtoOverview>> getListOfBooks(@RequestBody BookOverviewQueryDto bookOverviewQueryDto){
-            return new ResponseEntity<>(bookService.getBooksOverview(bookOverviewQueryDto),HttpStatus.OK);
-    }
-
-    //zwróć listę- jeśli będzie pusta- niech fron sobie to obsłuży
 }
-
