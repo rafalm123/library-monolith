@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookDtoOverview {
+public class BookOverviewDTO {
 
     private String author;
     private String title;

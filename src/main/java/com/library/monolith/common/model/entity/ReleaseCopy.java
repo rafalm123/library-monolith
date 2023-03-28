@@ -12,11 +12,7 @@ import java.util.UUID;
 @Entity
 @EqualsAndHashCode
 @Table(name = "release_copy")
-public class ReleaseCopy {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name="id")
-    private Long id;
+public class ReleaseCopy extends BaseEntity{
 
     @Column(name="cover_type")
     private String coverType;

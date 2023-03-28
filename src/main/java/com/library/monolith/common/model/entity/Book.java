@@ -12,11 +12,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "book")
-public class Book {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name="id")
-    private Long id;
+public class Book extends BaseEntity{
 
     @Column(name="author")
     private String author;
