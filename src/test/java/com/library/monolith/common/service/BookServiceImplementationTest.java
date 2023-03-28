@@ -3,7 +3,7 @@ package com.library.monolith.common.service;
 import com.library.monolith.common.exception.BookException;
 import com.library.monolith.common.mapping.BookDetailsDtoMapper;
 import com.library.monolith.common.model.dto.BookDetailsDTO;
-import com.library.monolith.common.model.dto.BookService;
+import com.library.monolith.common.model.dto.BookServiceImplementation;
 import com.library.monolith.common.model.entity.Book;
 import com.library.monolith.common.model.entity.BookRelease;
 import com.library.monolith.common.repository.BookReleaseRepository;
@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class BookServiceTest {
+class BookServiceImplementationTest {
 
     @Mock private BookReleaseRepository bookReleaseRepository;
     @Mock private BookRelease bookReleaseEntityMock;
@@ -32,7 +32,7 @@ class BookServiceTest {
     @Mock BookDetailsDTO mapperResult;
 
     @InjectMocks
-    private BookService service;
+    private BookServiceImplementation service;
 
     @Test
     void should_find_single_book() {

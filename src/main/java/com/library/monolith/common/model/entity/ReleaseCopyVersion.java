@@ -10,11 +10,8 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Entity
 @Table(name = "release_copy_version")
-public class ReleaseCopyVersion {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name="id")
-    private Long id;
+public class ReleaseCopyVersion extends BaseEntity{
+
     @Column(name="start_validity")
     private Timestamp startValidity;
     @Column(name="end_validity")

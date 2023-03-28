@@ -15,12 +15,8 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Entity
 @Table(name="book_release")
-public class BookRelease {
+public class BookRelease extends BaseEntity{
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name="id")
-    private Long id;
     @Column(name="isbn")
     private Long isbn;
     @Column(name="pages")
