@@ -1,11 +1,10 @@
 package com.library.monolith.common.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +20,5 @@ public class Book extends BaseEntity{
     @Column(name = "publish_year")
     private Integer publishYear;
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BookRelease> releases = new ArrayList<>();
+    private List<BookRelease> bookReleases;
 }

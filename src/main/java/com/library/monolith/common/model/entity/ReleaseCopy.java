@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -20,5 +19,5 @@ public class ReleaseCopy extends BaseEntity{
     @JoinColumn(name = "book_release_id",referencedColumnName = "id")
     private BookRelease bookRelease;
     @OneToMany(mappedBy = "releaseCopy",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ReleaseCopyVersion> versions;
+    private List<ReleaseCopyVersion> releaseCopyVersions;
 }

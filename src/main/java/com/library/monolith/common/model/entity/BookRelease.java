@@ -1,5 +1,6 @@
 package com.library.monolith.common.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +29,7 @@ public class BookRelease extends BaseEntity{
     @JoinColumn(name = "book_id",referencedColumnName = "id")
     private Book book;
     @OneToMany(mappedBy = "bookRelease",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ReleaseCopy> copies;
+    private List<ReleaseCopy> releaseCopies;
 
 
 }

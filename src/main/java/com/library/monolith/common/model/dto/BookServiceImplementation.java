@@ -3,9 +3,11 @@ package com.library.monolith.common.model.dto;
 import com.library.monolith.common.exception.BookError;
 import com.library.monolith.common.exception.BookException;
 import com.library.monolith.common.mapping.BookOverviewDtoMapper;
+import com.library.monolith.common.model.entity.Book;
 import com.library.monolith.common.model.entity.BookRelease;
 import com.library.monolith.common.repository.BookReleaseRepository;
 import com.library.monolith.common.mapping.BookDetailsDtoMapper;
+import com.library.monolith.common.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.domain.Page;
@@ -49,4 +51,5 @@ public class BookServiceImplementation implements BookService{
         List<BookOverviewDTO> list = getBookOverviewDtoList();
         return new PageImpl<>(list,PageRequest.of(queryDto.page, queryDto.pageSize), list.size());
     }
+
 }
