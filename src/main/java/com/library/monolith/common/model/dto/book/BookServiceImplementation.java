@@ -1,13 +1,11 @@
-package com.library.monolith.common.model.dto;
+package com.library.monolith.common.model.dto.book;
 
-import com.library.monolith.common.exception.BookError;
-import com.library.monolith.common.exception.BookException;
-import com.library.monolith.common.mapping.BookOverviewDtoMapper;
-import com.library.monolith.common.model.entity.Book;
-import com.library.monolith.common.model.entity.BookRelease;
-import com.library.monolith.common.repository.BookReleaseRepository;
-import com.library.monolith.common.mapping.BookDetailsDtoMapper;
-import com.library.monolith.common.repository.BookRepository;
+import com.library.monolith.common.exception.book.BookError;
+import com.library.monolith.common.exception.book.BookException;
+import com.library.monolith.common.mapping.book.BookOverviewDtoMapper;
+import com.library.monolith.common.model.entity.book.BookRelease;
+import com.library.monolith.common.repository.book.BookReleaseRepository;
+import com.library.monolith.common.mapping.book.BookDetailsDtoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.domain.Page;
@@ -20,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class BookServiceImplementation implements BookService{
+public class BookServiceImplementation implements BookService {
     private final BookReleaseRepository bookReleaseRepository;
 
     public BookDetailsDTO getBookDetailsDto(Long id) {

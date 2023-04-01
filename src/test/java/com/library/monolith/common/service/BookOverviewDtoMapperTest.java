@@ -1,9 +1,9 @@
 package com.library.monolith.common.service;
 
-import com.library.monolith.common.mapping.BookDetailsDtoMapper;
-import com.library.monolith.common.model.dto.BookDetailsDTO;
-import com.library.monolith.common.model.entity.Book;
-import com.library.monolith.common.model.entity.BookRelease;
+import com.library.monolith.common.mapping.book.BookDetailsDtoMapper;
+import com.library.monolith.common.model.dto.book.BookDetailsDTO;
+import com.library.monolith.common.model.entity.book.Book;
+import com.library.monolith.common.model.entity.book.BookRelease;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,6 +1,5 @@
-package com.library.monolith.common.model.dto;
+package com.library.monolith.common.model.dto.book;
 
-import com.library.monolith.common.model.entity.Book;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

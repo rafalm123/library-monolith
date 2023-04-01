@@ -1,7 +1,7 @@
 //package com.library.monolith.common.service;
 //
 //import com.library.monolith.common.model.entity.ReleaseCopyEntity;
-//import com.library.monolith.common.repository.BookReleaseRepository;
+//import com.library.monolith.common.repository.book.BookReleaseRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //

@@ -1,4 +1,4 @@
-package com.library.monolith.common.exception;
+package com.library.monolith.common.exception.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

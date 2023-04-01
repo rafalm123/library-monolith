@@ -1,9 +1,9 @@
 package com.library.monolith.common.controller;
 
-import com.library.monolith.common.model.dto.BookDetailsDTO;
-import com.library.monolith.common.model.dto.BookOverviewDTO;
-import com.library.monolith.common.model.dto.BookOverviewQueryDto;
-import com.library.monolith.common.model.dto.BookServiceImplementation;
+import com.library.monolith.common.model.dto.book.BookDetailsDTO;
+import com.library.monolith.common.model.dto.book.BookOverviewDTO;
+import com.library.monolith.common.model.dto.book.BookOverviewQueryDto;
+import com.library.monolith.common.model.dto.book.BookServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +22,10 @@ public class BookController {
         return ResponseEntity.ok(bookServiceImplementation.getBookDetailsDto(id));
     }
 
-//    @GetMapping("")
-//    public ResponseEntity<List<BookOverviewDTO>> getAllOverviews(){
-//        return ResponseEntity.ok(bookServiceImplementation.getBookOverviewDtoList());
-//    }
+    @GetMapping
+    public ResponseEntity<List<BookOverviewDTO>> getAllOverviews(){
+        return ResponseEntity.ok(bookServiceImplementation.getBookOverviewDtoList());
+    }
 
     @GetMapping("/list")
     public ResponseEntity<Page<BookOverviewDTO>> getOverviewPage(@RequestBody BookOverviewQueryDto queryDto){

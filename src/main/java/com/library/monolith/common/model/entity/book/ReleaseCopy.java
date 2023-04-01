@@ -1,5 +1,6 @@
-package com.library.monolith.common.model.entity;
+package com.library.monolith.common.model.entity.book;
 
+import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode
 @Table(name = "release_copy")
-public class ReleaseCopy extends BaseEntity{
+public class ReleaseCopy extends BaseEntity {
 
     @Column(name="cover_type")
     private String coverType;

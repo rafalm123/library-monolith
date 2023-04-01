@@ -1,14 +1,11 @@
 package com.library.monolith;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.library.monolith.common.model.dto.EntityMapper;
-import com.library.monolith.common.repository.BookRepository;
-import org.apache.catalina.core.ApplicationContext;
-import org.springframework.boot.ApplicationContextFactory;
+import com.library.monolith.common.model.entity.EntityMapper;
+import com.library.monolith.common.repository.book.BookRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 

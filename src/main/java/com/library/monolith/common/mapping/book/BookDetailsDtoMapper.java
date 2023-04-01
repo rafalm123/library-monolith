@@ -1,8 +1,8 @@
-package com.library.monolith.common.mapping;
+package com.library.monolith.common.mapping.book;
 
-import com.library.monolith.common.model.dto.BookDetailsDTO;
-import com.library.monolith.common.model.entity.Book;
-import com.library.monolith.common.model.entity.BookRelease;
+import com.library.monolith.common.model.dto.book.BookDetailsDTO;
+import com.library.monolith.common.model.entity.book.Book;
+import com.library.monolith.common.model.entity.book.BookRelease;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

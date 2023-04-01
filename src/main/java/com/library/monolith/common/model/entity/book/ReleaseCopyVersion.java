@@ -1,6 +1,6 @@
-package com.library.monolith.common.model.entity;
+package com.library.monolith.common.model.entity.book;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Entity
 @Table(name = "release_copy_version")
-public class ReleaseCopyVersion extends BaseEntity{
+public class ReleaseCopyVersion extends BaseEntity {
 
     @Column(name="start_validity")
     private Timestamp startValidity;

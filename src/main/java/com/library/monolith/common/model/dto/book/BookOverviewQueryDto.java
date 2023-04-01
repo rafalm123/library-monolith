@@ -1,4 +1,4 @@
-package com.library.monolith.common.model.dto;
+package com.library.monolith.common.model.dto.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

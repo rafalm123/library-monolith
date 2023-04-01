@@ -1,7 +1,6 @@
-package com.library.monolith.common.model.dto;
+package com.library.monolith.common.model.entity.book;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.library.monolith.common.model.entity.Book;
 import lombok.Data;
 
 import java.util.List;

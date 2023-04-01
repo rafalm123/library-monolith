@@ -1,6 +1,6 @@
-package com.library.monolith.common.model.entity;
+package com.library.monolith.common.model.entity.book;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "book")
-public class Book extends BaseEntity{
+public class Book extends BaseEntity {
 
     @Column(name="author")
     private String author;

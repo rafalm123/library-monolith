@@ -1,12 +1,12 @@
 package com.library.monolith.common.service;
 
-import com.library.monolith.common.exception.BookException;
-import com.library.monolith.common.mapping.BookDetailsDtoMapper;
-import com.library.monolith.common.model.dto.BookDetailsDTO;
-import com.library.monolith.common.model.dto.BookServiceImplementation;
-import com.library.monolith.common.model.entity.Book;
-import com.library.monolith.common.model.entity.BookRelease;
-import com.library.monolith.common.repository.BookReleaseRepository;
+import com.library.monolith.common.exception.book.BookException;
+import com.library.monolith.common.mapping.book.BookDetailsDtoMapper;
+import com.library.monolith.common.model.dto.book.BookDetailsDTO;
+import com.library.monolith.common.model.dto.book.BookServiceImplementation;
+import com.library.monolith.common.model.entity.book.Book;
+import com.library.monolith.common.model.entity.book.BookRelease;
+import com.library.monolith.common.repository.book.BookReleaseRepository;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

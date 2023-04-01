@@ -1,6 +1,6 @@
-package com.library.monolith.common.model.entity;
+package com.library.monolith.common.model.entity.book;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Entity
 @Table(name="book_release")
-public class BookRelease extends BaseEntity{
+public class BookRelease extends BaseEntity {
 
     @Column(name="isbn")
     private Long isbn;

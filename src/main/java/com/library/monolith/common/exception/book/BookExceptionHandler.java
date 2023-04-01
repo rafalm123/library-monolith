@@ -1,5 +1,7 @@
-package com.library.monolith.common.exception;
+package com.library.monolith.common.exception.book;
 
+import com.library.monolith.common.exception.book.BookException;
+import com.library.monolith.common.exception.book.BookExceptionDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

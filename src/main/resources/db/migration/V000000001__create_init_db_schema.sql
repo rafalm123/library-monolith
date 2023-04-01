@@ -27,10 +27,40 @@ CREATE TABLE release_copy(
 
 DROP TABLE IF EXISTS release_copy_version;
 CREATE TABLE release_copy_version(
-                                id BIGINT NOT NULL PRIMARY KEY,
-                                release_copy_id BIGINT REFERENCES release_copy(id) ON DELETE CASCADE,
-                                start_validity TIMESTAMP NOT NULL,
-                                end_validity TIMESTAMP NOT NULL,
-                                status VARCHAR(15) NOT NULL,
-                                notes VARCHAR(200)
+                            id BIGINT NOT NULL PRIMARY KEY,
+                            release_copy_id BIGINT REFERENCES release_copy(id) ON DELETE CASCADE,
+                            start_validity TIMESTAMP NOT NULL,
+                            end_validity TIMESTAMP NOT NULL,
+                            status VARCHAR(15) NOT NULL,
+                            notes VARCHAR(200)
+);
+
+DROP TABLE IF EXISTS library_user;
+CREATE TABLE library_user (
+                            id BIGINT NOT NULL PRIMARY KEY,
+                            creation_time TIMESTAMP NOT NULL,
+                            username TEXT NOT NULL UNIQUE ,
+                            user_password TEXT NOT NULL
+ );
+
+DROP TABLE IF EXISTS library_user_version;
+CREATE TABLE library_user_version (
+                            id BIGINT NOT NULL PRIMARY KEY,
+                            library_user_id BIGINT REFERENCES library_user(id),
+                            nickname TEXT NOT NULL UNIQUE,
+                            email TEXT NOT NULL UNIQUE,
+                            debt DECIMAL DEFAULT 0,
+                            start_validity TIMESTAMP NOT NULL,
+                            end_validity TIMESTAMP NOT NULL
+ );
+
+DROP TABLE IF EXISTS address;
+CREATE TABLE address (
+                            id BIGINT NOT NULL PRIMARY KEY,
+                            library_user_version_id BIGINT REFERENCES library_user_version(id),
+                            street TEXT NOT NULL,
+                            city TEXT NOT NULL,
+                            state TEXT NOT NULL,
+                            postal_code TEXT NOT NULL,
+                            country TEXT NOT NULL
 );

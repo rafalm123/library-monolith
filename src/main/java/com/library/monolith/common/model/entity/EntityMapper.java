@@ -1,17 +1,13 @@
-package com.library.monolith.common.model.dto;
+package com.library.monolith.common.model.entity;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.library.monolith.common.model.entity.Book;
-import com.library.monolith.common.repository.BookReleaseRepository;
-import com.library.monolith.common.repository.BookRepository;
+import com.library.monolith.common.model.entity.book.Book;
+import com.library.monolith.common.model.entity.book.BooksWrapper;
+import com.library.monolith.common.repository.book.BookRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileInputStream;
