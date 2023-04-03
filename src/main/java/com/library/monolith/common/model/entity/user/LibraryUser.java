@@ -19,39 +19,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "library_user")
-public class LibraryUser extends BaseEntity implements UserDetails {
+public class LibraryUser extends BaseEntity{
 
-    @Column(name = "creation_time")
-    private Timestamp creationTime;
-    @Column(name = "username")
-    private String username;
-    @Column(name = "user_password")
-    private String password;
+//    @Column(name = "username")
+//    private String username;
+//    @Column(name = "user_password")
+//    private String password;
+    @Column(name = "nickname")
+    private String nickname;
+    @Column(name = "email")
+    private String email;
     @OneToMany(mappedBy = "libraryUser",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LibraryUserVersion> libraryUserVersions;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public LibraryUser(String nickname, String email) {
+        this.nickname = nickname;
+        this.email = email;
     }
 }

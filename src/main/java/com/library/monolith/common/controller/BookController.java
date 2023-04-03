@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("api/library/")
 @RequiredArgsConstructor
 public class BookController {
     private final BookServiceImplementation bookServiceImplementation;
@@ -22,7 +22,7 @@ public class BookController {
         return ResponseEntity.ok(bookServiceImplementation.getBookDetailsDto(id));
     }
 
-    @GetMapping
+    @GetMapping("/books")
     public ResponseEntity<List<BookOverviewDTO>> getAllOverviews(){
         return ResponseEntity.ok(bookServiceImplementation.getBookOverviewDtoList());
     }
