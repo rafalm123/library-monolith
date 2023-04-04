@@ -6,6 +6,7 @@ import com.library.monolith.common.mapping.book.BookOverviewDtoMapper;
 import com.library.monolith.common.model.entity.book.BookRelease;
 import com.library.monolith.common.repository.book.BookReleaseRepository;
 import com.library.monolith.common.mapping.book.BookDetailsDtoMapper;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.domain.Page;
@@ -17,13 +18,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BookServiceImplementation implements BookService {
     private final BookReleaseRepository bookReleaseRepository;
 
     public BookDetailsDTO getBookDetailsDto(Long id) {
           val bookRelease = bookReleaseRepository.findById(id).orElseThrow(() -> {
-            throw new BookException(BookError.BOOK_RELASE_NOT_FOUND);
+            throw new BookException(BookError.BOOK_RELEASE_NOT_FOUND);
         });
 
         return BookDetailsDtoMapper.getInstance().toBookDetailsDto(bookRelease.getBook(), bookRelease);
@@ -31,7 +32,7 @@ public class BookServiceImplementation implements BookService {
 
     public BookOverviewDTO getBookOverviewDto(Long id) {
         val bookRelease = bookReleaseRepository.findById(id).orElseThrow(() -> {
-            throw new BookException(BookError.BOOK_RELASE_NOT_FOUND);
+            throw new BookException(BookError.BOOK_RELEASE_NOT_FOUND);
         });
 
         return BookOverviewDtoMapper.getInstance().toBookOverviewDto(bookRelease.getBook(), bookRelease);

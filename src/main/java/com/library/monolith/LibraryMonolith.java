@@ -1,7 +1,7 @@
 package com.library.monolith;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.library.monolith.common.model.entity.EntityMapper;
+import com.library.monolith.common.mapping.book.BookEntityMapper;
 import com.library.monolith.common.repository.book.BookRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,13 +21,13 @@ public class LibraryMonolith {
     }
 
     @Bean
-    public EntityMapper entityMapperMain(BookRepository bookRepository,ObjectMapper objectMapper){
-        return new EntityMapper(bookRepository,objectMapper);
+    public BookEntityMapper entityMapperMain(BookRepository bookRepository, ObjectMapper objectMapper){
+        return new BookEntityMapper(bookRepository,objectMapper);
     }
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(LibraryMonolith.class, args);
-        EntityMapper mapper = context.getBean(EntityMapper.class);
+        BookEntityMapper mapper = context.getBean(BookEntityMapper.class);
         try {
             mapper.saveBooksFromJson();
         } catch (IOException e){

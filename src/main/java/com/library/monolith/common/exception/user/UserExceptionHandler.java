@@ -1,6 +1,7 @@
-package com.library.monolith.common.exception.book;
+package com.library.monolith.common.exception.user;
 
 import com.library.monolith.common.exception.ExceptionDto;
+import com.library.monolith.common.exception.book.BookException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 
+import static com.library.monolith.common.exception.user.UserError.OTHER_ERROR;
+import static com.library.monolith.common.exception.user.UserError.USER_VERSION_NOT_FOUND;
+
 @Slf4j
 @RestControllerAdvice
-public class BookExceptionHandler {
+public class UserExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionDto> handleError(HttpServletRequest request, Exception e) {
@@ -26,8 +30,8 @@ public class BookExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(value = BookException.class)
-    public ResponseEntity<ExceptionDto> handleBookException(BookException e, WebRequest request) {
+    @ExceptionHandler(value = UserException.class)
+    public ResponseEntity<ExceptionDto> handleBookException(UserException e, WebRequest request) {
         log.error(getEndpointData(request) + e.getMessage());
         HttpStatus httpStatus = resolveStatus(e);
         return new ResponseEntity<>(prepareExceptionDto(
@@ -35,10 +39,10 @@ public class BookExceptionHandler {
                 ((ServletWebRequest) request).getHttpMethod().name()), httpStatus);
     }
 
-    private HttpStatus resolveStatus(BookException bookException) {
-        return switch (bookException.getBookError()) {
-            case BOOK_RELEASE_NOT_FOUND -> HttpStatus.NOT_FOUND;
-            case SOME_OTHER_CASE_ERROR -> HttpStatus.NOT_FOUND;
+    private HttpStatus resolveStatus(UserException userException) {
+        return switch (userException.getUserError()) {
+            case USER_VERSION_NOT_FOUND -> HttpStatus.NOT_FOUND;
+            case OTHER_ERROR -> HttpStatus.NOT_FOUND;
         };
     }
 
@@ -61,4 +65,6 @@ public class BookExceptionHandler {
                 .method(method)
                 .build();
     }
+
+
 }

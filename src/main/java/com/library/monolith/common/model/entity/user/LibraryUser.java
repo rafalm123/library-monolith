@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,19 +22,16 @@ import java.util.List;
 @Table(name = "library_user")
 public class LibraryUser extends BaseEntity{
 
-//    @Column(name = "username")
-//    private String username;
-//    @Column(name = "user_password")
-//    private String password;
-    @Column(name = "nickname")
-    private String nickname;
-    @Column(name = "email")
-    private String email;
+    @Column(name = "create_date")
+    private Timestamp createDate;
+    @Column(name = "user_name")
+    private String name;
+    @Column(name = "user_surname")
+    private String surname;
+    @Column(name = "library_code")
+    private Long libraryCode;
+
     @OneToMany(mappedBy = "libraryUser",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LibraryUserVersion> libraryUserVersions;
 
-    public LibraryUser(String nickname, String email) {
-        this.nickname = nickname;
-        this.email = email;
-    }
 }

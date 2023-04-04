@@ -1,4 +1,4 @@
-package com.library.monolith.common.model.entity;
+package com.library.monolith.common.mapping.book;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EntityMapper {
+public class BookEntityMapper {
 
     private BookRepository bookRepository;
     private ObjectMapper mapper;
@@ -32,10 +32,7 @@ public class EntityMapper {
 
             List<Book> books = booksWrapper.getBooks();
 
-
             mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-
-
 
             books.forEach(book -> book.getBookReleases()
                     .forEach(bookRelease -> {

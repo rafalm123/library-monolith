@@ -20,6 +20,7 @@ public interface BookDetailsDtoMapper {
     @Mapping(source = "bookRelease.isbn", target = "isbn")
     @Mapping(source = "bookRelease.releaseYear", target = "releaseYear")
     @Mapping(source = "bookRelease.language", target = "language")
-    BookDetailsDTO toBookDetailsDto(Book book, BookRelease bookRelease);
+    BookDetailsDTO toBookDetailsDto(Book book,
+                                    BookRelease bookRelease);
 
 }

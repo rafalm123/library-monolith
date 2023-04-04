@@ -6,8 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LibraryUserRepository extends JpaRepository<LibraryUser, Long> {
 
-    LibraryUser findAllByUsername(String username);
-
-    LibraryUser findByUsername(String username);
-
 }

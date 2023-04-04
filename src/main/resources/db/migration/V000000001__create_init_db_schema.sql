@@ -38,21 +38,21 @@ CREATE TABLE release_copy_version(
 DROP TABLE IF EXISTS library_user;
 CREATE TABLE library_user (
                             id BIGINT NOT NULL PRIMARY KEY,
---                             username TEXT NOT NULL,
---                             user_password TEXT NOT NULL
-                            nickname TEXT NOT NULL UNIQUE,
-                            email TEXT NOT NULL UNIQUE
+                            library_code BIGINT NOT NULL UNIQUE,
+                            create_date TIMESTAMP NOT NULL,
+                            user_name TEXT NOT NULL,
+                            user_surname TEXT NOT NULL
  );
 
 DROP TABLE IF EXISTS library_user_version;
 CREATE TABLE library_user_version (
                             id BIGINT NOT NULL PRIMARY KEY,
                             library_user_id BIGINT REFERENCES library_user(id),
---                             nickname TEXT NOT NULL UNIQUE,
---                             email TEXT NOT NULL UNIQUE
---                             debt DECIMAL DEFAULT 0,
---                             start_validity TIMESTAMP NOT NULL,
---                             end_validity TIMESTAMP NOT NULL
+                            nickname TEXT NOT NULL UNIQUE,
+                            email TEXT NOT NULL UNIQUE,
+                            debt DECIMAL DEFAULT 0,
+                            start_validity TIMESTAMP NOT NULL,
+                            end_validity TIMESTAMP NOT NULL
  );
 
 DROP TABLE IF EXISTS address;
