@@ -3,7 +3,6 @@ package com.library.monolith.common.mapping.book;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.library.monolith.common.model.entity.book.Book;
-import com.library.monolith.common.model.entity.book.BooksWrapper;
 import com.library.monolith.common.repository.book.BookRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +24,7 @@ public class BookEntityMapper {
 
     public void saveBooksFromJson() throws IOException {
 
-        try (InputStream inputStream = new FileInputStream(new File("C:\\Users\\Dell\\IdeaProjects\\library\\src\\main\\resources\\static\\booksai.json"))) {
+        try (InputStream inputStream = new FileInputStream("C:\\Users\\Dell\\IdeaProjects\\library\\src\\main\\resources\\static\\booksai.json")) {
             BooksWrapper booksWrapper = mapper.readValue(
                     inputStream,
                     BooksWrapper.class);

@@ -1,0 +1,79 @@
+{
+  "libraryUser": [
+    {
+      "username": "user1",
+      "password": "password1",
+      "createDate": "2023-04-06T12:00:00",
+      "libraryCode": 1001,
+      "role": "REGULAR",
+      "libraryUserVersions": [
+        {
+          "name": "John",
+          "surname": "Doe",
+          "nickname": "johndoe",
+          "email": "john.doe@example.com",
+          "debt": 0,
+          "start_validity": "2023-04-06T12:00:00",
+          "end_validity": "2024-04-06T12:00:00",
+          "address": {
+            "street": "123 Main St",
+            "city": "New York",
+            "state": "NY",
+            "postalCode": "10001",
+            "country": "USA"
+          }
+        }
+      ]
+    },
+    {
+      "username": "user2",
+      "password": "password2",
+      "createDate": "2023-04-06T12:00:00",
+      "libraryCode": 1002,
+      "role": "REGULAR",
+      "libraryUserVersions": [
+        {
+          "name": "Jane",
+          "surname": "Doe",
+          "nickname": "janedoe",
+          "email": "jane.doe@example.com",
+          "debt": 0,
+          "start_validity": "2023-04-06T12:00:00",
+          "end_validity": "2024-04-06T12:00:00",
+          "address": {
+            "street": "456 Main St",
+            "city": "Los Angeles",
+            "state": "CA",
+            "postalCode": "90001",
+            "country": "USA"
+          }
+        }
+      ]
+    },
+    {
+      "username": "user3",
+      "password": "password3",
+      "createDate": "2023-04-06T12:00:00",
+      "libraryCode": 1003,
+      "role": "REGULAR",
+      "libraryUserVersions": [
+        {
+          "name": "Alice",
+          "surname": "Smith",
+          "nickname": "alicesmith",
+          "email": "alice.smith@example.com",
+          "debt": 0,
+          "start_validity": "2023-04-06T12:00:00",
+          "end_validity": "2024-04-06T12:00:00",
+          "address": {
+            "street": "789 Main St",
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60601",
+            "country": "USA"
+          }
+        }
+      ]
+    }
+  ]
+}

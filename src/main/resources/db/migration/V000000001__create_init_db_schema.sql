@@ -5,7 +5,8 @@ CREATE TABLE book(
                               id BIGINT NOT NULL PRIMARY KEY,
                               author TEXT NOT NULL,
                               title TEXT NOT NULL,
-                              publish_year INTEGER NOT NULL
+                              publish_year INTEGER NOT NULL,
+                              UNIQUE (author, title)
 );
 
 DROP TABLE IF EXISTS book_release;
@@ -34,21 +35,25 @@ CREATE TABLE release_copy_version(
                             status VARCHAR(15) NOT NULL,
                             notes VARCHAR(200)
 );
+CREATE TYPE user_role AS ENUM ('ADMIN', 'REGULAR','ROOT');
 
 DROP TABLE IF EXISTS library_user;
 CREATE TABLE library_user (
                             id BIGINT NOT NULL PRIMARY KEY,
+                            username TEXT NOT NULL UNIQUE,
+                            password TEXT NOT NULL,
                             library_code BIGINT NOT NULL UNIQUE,
                             create_date TIMESTAMP NOT NULL,
-                            user_name TEXT NOT NULL,
-                            user_surname TEXT NOT NULL
- );
+                            user_role INT NOT NULL
+);
 
 DROP TABLE IF EXISTS library_user_version;
 CREATE TABLE library_user_version (
                             id BIGINT NOT NULL PRIMARY KEY,
                             library_user_id BIGINT REFERENCES library_user(id),
                             nickname TEXT NOT NULL UNIQUE,
+                            user_name TEXT NOT NULL,
+                            user_surname TEXT NOT NULL,
                             email TEXT NOT NULL UNIQUE,
                             debt DECIMAL DEFAULT 0,
                             start_validity TIMESTAMP NOT NULL,
@@ -66,4 +71,3 @@ CREATE TABLE address (
                             country TEXT NOT NULL
 );
 
-DROP TABLE IF EXISTS user_role;

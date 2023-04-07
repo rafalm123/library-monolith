@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Data
@@ -17,6 +16,10 @@ import java.sql.Timestamp;
 @Table(name = "library_user_version")
 public class LibraryUserVersion extends BaseEntity {
 
+    @Column(name = "user_name")
+    private String name;
+    @Column(name = "user_surname")
+    private String surname;
     @Column(name = "nickname")
     private String nickname;
     @Column(name = "email")

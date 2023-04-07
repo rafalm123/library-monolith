@@ -14,8 +14,8 @@ public interface LibraryUserDetailsDtoMapper {
         return  Mappers.getMapper(LibraryUserDetailsDtoMapper.class);
     }
 
-    @Mapping(source = "libraryUser.name", target = "name")
-    @Mapping(source = "libraryUser.surname", target = "surname")
+    @Mapping(source = "libraryUserVersion.name", target = "name")
+    @Mapping(source = "libraryUserVersion.surname", target = "surname")
     @Mapping(source = "libraryUser.libraryCode", target = "libraryCode")
     @Mapping(source = "libraryUserVersion.nickname", target = "nickname")
     @Mapping(source = "libraryUser.createDate", target = "createDate")

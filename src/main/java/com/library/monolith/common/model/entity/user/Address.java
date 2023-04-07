@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -31,3 +30,4 @@ public class Address extends BaseEntity {
     private LibraryUserVersion libraryUserVersion;
 
 }
+

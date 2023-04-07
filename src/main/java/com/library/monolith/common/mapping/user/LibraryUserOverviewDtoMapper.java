@@ -1,6 +1,5 @@
 package com.library.monolith.common.mapping.user;
 
-import com.library.monolith.common.model.dto.user.LibraryUserDetailsDTO;
 import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
 import com.library.monolith.common.model.entity.user.LibraryUser;
 import com.library.monolith.common.model.entity.user.LibraryUserVersion;
@@ -20,8 +19,8 @@ public interface LibraryUserOverviewDtoMapper {
     @Mapping(target = "address.postalCode", ignore = true)
     @Mapping(target = "address.country", ignore = true)
     @Mapping(target = "address.city", ignore = true)
-    @Mapping(source = "libraryUser.name", target = "name")
-    @Mapping(source = "libraryUser.surname", target = "surname")
+    @Mapping(source = "libraryUserVersion.name", target = "name")
+    @Mapping(source = "libraryUserVersion.surname", target = "surname")
     @Mapping(source = "libraryUser.libraryCode", target = "libraryCode")
     @Mapping(source = "libraryUserVersion.email", target = "email")
     LibraryUserOverviewDTO toLibraryUserOverviewDto(LibraryUser libraryUser,
