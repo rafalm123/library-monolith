@@ -35,8 +35,8 @@ public class UserEntityMapper {
             mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
             users.forEach(libraryUser -> {
-                    libraryUser.setPassword(passwordEncoder.encode(libraryUser.getPassword()));
-                    libraryUser.getLibraryUserVersions()
+                        libraryUser.setPassword(passwordEncoder.encode(libraryUser.getPassword()));
+                        libraryUser.getLibraryUserVersions()
                                 .forEach(libraryUserVersion -> {
                                     libraryUserVersion.setLibraryUser(libraryUser);
                                     libraryUserVersion.getAddress().setLibraryUserVersion(libraryUserVersion);

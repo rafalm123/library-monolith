@@ -6,8 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum LibraryUserPermission {
-        REGULAR_READ("reader:read"),
-        REGULAR_WRITE("reader:write"),
+        REGULAR_READ("regular:read"),
         ADMIN_READ("registry:read"),
         ADMIN_WRITE("registry:write");
 

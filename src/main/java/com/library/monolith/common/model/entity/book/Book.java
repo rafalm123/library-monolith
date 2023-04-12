@@ -13,7 +13,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity
 @Table(name = "book", uniqueConstraints = @UniqueConstraint(columnNames = {"author", "title"}))
 public class Book extends BaseEntity {

@@ -38,14 +38,14 @@ public class LibraryMonolith {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(LibraryMonolith.class, args);
-        BookEntityMapper bookMapper = context.getBean(BookEntityMapper.class);
-        UserEntityMapper userMapper = context.getBean(UserEntityMapper.class);
-        try {
-            bookMapper.saveBooksFromJson();
-            userMapper.saveUserFromJson();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+//        BookEntityMapper bookMapper = context.getBean(BookEntityMapper.class);
+//        UserEntityMapper userMapper = context.getBean(UserEntityMapper.class);
+//        try {
+////            bookMapper.saveBooksFromJson();
+////            userMapper.saveUserFromJson();
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
 
     }
 }

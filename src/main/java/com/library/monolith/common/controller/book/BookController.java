@@ -20,19 +20,16 @@ public class BookController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<BookDetailsDTO> getBookDetailsDtoById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(bookServiceImplementation.getBookDetailsDto(id));
     }
 
     @GetMapping()
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN,ROLE_REGULAR')")
     public ResponseEntity<List<BookOverviewDTO>> getAllBookOverviewDtos(){
         return ResponseEntity.ok(bookServiceImplementation.getBookOverviewDtoList());
     }
 
     @GetMapping("/list")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Page<BookOverviewDTO>> getBookOverviewDtosPage(@RequestBody BookOverviewQueryDto queryDto){
         return ResponseEntity.ok(bookServiceImplementation.getBookOverviewPage(queryDto));
     }

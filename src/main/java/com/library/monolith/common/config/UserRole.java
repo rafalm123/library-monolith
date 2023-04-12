@@ -12,8 +12,8 @@ import static com.library.monolith.common.config.LibraryUserPermission.*;
 @Getter
 public enum UserRole {
     ROOT(Sets.newHashSet()),
-    REGULAR(Sets.newHashSet()),
-    ADMIN(Sets.newHashSet(ADMIN_READ, ADMIN_WRITE, REGULAR_READ, REGULAR_WRITE));
+    REGULAR(Sets.newHashSet(REGULAR_READ)),
+    ADMIN(Sets.newHashSet(ADMIN_READ, ADMIN_WRITE, REGULAR_READ));
     private final Set<LibraryUserPermission> permissions;
 
 
