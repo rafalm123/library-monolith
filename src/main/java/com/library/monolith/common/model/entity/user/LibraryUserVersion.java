@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Data
 @Entity
@@ -36,4 +37,17 @@ public class LibraryUserVersion extends BaseEntity {
     @OneToOne(mappedBy = "libraryUserVersion",cascade = CascadeType.ALL,orphanRemoval = true)
     private Address address;
 
+    public LibraryUserVersion(String name,
+                              String surname,
+                              String nickname,
+                              String email
+                              ) {
+        this.name = name;
+        this.surname = surname;
+        this.nickname = nickname;
+        this.email = email;
+        this.debt = null;
+        this.start_validity = Timestamp.from(Instant.now());
+        this.end_validity = null;
+    }
 }

@@ -31,6 +31,7 @@ public interface LibraryUserRegistrationDtoMapper {
                                                             LibraryUserVersion libraryUserVersion,
                                                             Address address);
 
+    @Mapping(target = "roles", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createDate", expression = "java(java.sql.Timestamp.from(java.time.Instant.now()))")
     @Mapping(target = "libraryCode", expression = "java(new java.util.Random().nextLong(900000000) + 100000000)")

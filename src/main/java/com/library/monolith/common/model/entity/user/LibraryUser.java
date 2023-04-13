@@ -1,6 +1,5 @@
 package com.library.monolith.common.model.entity.user;
 
-import com.library.monolith.common.config.UserRole;
 import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -28,12 +29,17 @@ public class LibraryUser extends BaseEntity implements UserDetails{
     private Timestamp createDate;
     @Column(name = "library_code",unique = true)
     private Long libraryCode;
-    @Column(name = "user_role")
-    @Enumerated(EnumType.ORDINAL)
-    private UserRole role;
-
     @OneToMany(mappedBy = "libraryUser",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LibraryUserVersion> libraryUserVersions;
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -70,5 +76,7 @@ public class LibraryUser extends BaseEntity implements UserDetails{
         return true;
     }
 
-
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
 }

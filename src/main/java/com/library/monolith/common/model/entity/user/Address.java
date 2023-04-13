@@ -29,5 +29,12 @@ public class Address extends BaseEntity {
     @JoinColumn(name = "library_user_version_id",referencedColumnName = "id")
     private LibraryUserVersion libraryUserVersion;
 
+    public Address(String street, String city, String state, String postalCode, String country) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+        this.country = country;
+    }
 }
 

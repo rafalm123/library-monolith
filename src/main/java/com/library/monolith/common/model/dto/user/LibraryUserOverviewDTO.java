@@ -1,5 +1,6 @@
 package com.library.monolith.common.model.dto.user;
 
+import com.library.monolith.common.model.entity.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,6 @@ public class LibraryUserOverviewDTO {
     private String surname;
     private Long libraryCode;
     private String email;
+    private String role;
 
 }

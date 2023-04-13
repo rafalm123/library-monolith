@@ -3,58 +3,88 @@ package com.library.monolith.common.controller;
 import com.library.monolith.common.mapping.user.LibraryUserRegistrationDtoMapper;
 import com.library.monolith.common.model.dto.book.BookOverviewDTO;
 import com.library.monolith.common.model.dto.book.BookServiceImplementation;
+import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
 import com.library.monolith.common.model.dto.user.LibraryUserRegistrationDTO;
+import com.library.monolith.common.model.dto.user.UserRegistrationService;
+import com.library.monolith.common.model.dto.user.UserServiceImplementation;
 import com.library.monolith.common.model.entity.user.Address;
 import com.library.monolith.common.model.entity.user.LibraryUser;
 import com.library.monolith.common.model.entity.user.LibraryUserVersion;
+import com.library.monolith.common.model.entity.user.Role;
 import com.library.monolith.common.repository.user.LibraryUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
-@RequiredArgsConstructor
 public class TemplateController {
 
-    private LibraryUserRepository libraryUserRepository;
-    private PasswordEncoder passwordEncoder;
+    private final LibraryUserRepository libraryUserRepository;
+    private final PasswordEncoder passwordEncoder;
     private final BookServiceImplementation bookServiceImplementation;
+    private final UserServiceImplementation userServiceImplementation;
+    private final UserRegistrationService userRegistrationService;
 
     @Autowired
     public TemplateController(LibraryUserRepository libraryUserRepository,
                               PasswordEncoder passwordEncoder,
-                              BookServiceImplementation bookServiceImplementation) {
+                              BookServiceImplementation bookServiceImplementation,
+                              UserServiceImplementation userServiceImplementation,
+                              UserRegistrationService userRegistrationService) {
         this.libraryUserRepository = libraryUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.bookServiceImplementation = bookServiceImplementation;
+        this.userServiceImplementation = userServiceImplementation;
+        this.userRegistrationService = userRegistrationService;
     }
 
-    @GetMapping("login")
+    @Autowired
+
+
+    @GetMapping("/login")
     public String getLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/logout_first";
+        }
         return "login";
     }
 
-    @GetMapping("home")
-    public String getHome() {
+    @GetMapping("/home")
+    public String getHome(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentNickname = authentication.getName();
+        model.addAttribute("nickname", currentNickname);
         return "home";
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public String getIndex() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/logout_first";
+        }
         return "index";
     }
 
-    @GetMapping("list_books")
+    @GetMapping("/list_users")
+    public String listUsers(Model model) {
+        List<LibraryUserOverviewDTO> users = userServiceImplementation.getLibraryUserOverviewDtoList();
+        model.addAttribute("users", users);
+        return "list_users";
+    }
+
+    @GetMapping("/list_books")
     public String getListBooks(Model model) {
         List<BookOverviewDTO> books = bookServiceImplementation.getBookOverviewDtoList();
         model.addAttribute("books", books);
@@ -63,6 +93,11 @@ public class TemplateController {
 
     @GetMapping("/register")
     public String showSignUpForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/logout_first";
+        }
+
         model.addAttribute("user", new LibraryUserRegistrationDTO());
         return "signup";
     }
@@ -80,10 +115,21 @@ public class TemplateController {
         address.setLibraryUserVersion(libraryUserVersion);
 
         libraryUser.setLibraryUserVersions(Collections.singletonList(libraryUserVersion));
+        userRegistrationService.registerDefaultUser(libraryUser);
 
         libraryUserRepository.save(libraryUser);
 
         return "register_success";
+    }
+
+    @GetMapping("logout_redirect")
+    public String getLogoutFirst() {
+        return "logout_redirect";
+    }
+
+    private static boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 }
 

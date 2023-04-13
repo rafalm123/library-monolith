@@ -35,7 +35,6 @@ CREATE TABLE release_copy_version(
                                      status VARCHAR(15) NOT NULL,
                                      notes VARCHAR(200)
 );
-CREATE TYPE user_role AS ENUM ('ADMIN', 'REGULAR','ROOT');
 
 DROP TABLE IF EXISTS library_user;
 CREATE TABLE library_user (
@@ -70,3 +69,11 @@ CREATE TABLE address (
                          country TEXT NOT NULL
 );
 
+DROP TABLE IF EXISTS role;
+CREATE TABLE role (
+                      id BIGINT NOT NULL PRIMARY KEY,
+                      name VARCHAR(20) NOT NULL
+);
+
+INSERT INTO role (id, name) VALUES (1, 'REGULAR');
+INSERT INTO role (id, name) VALUES (2, 'ADMIN');
