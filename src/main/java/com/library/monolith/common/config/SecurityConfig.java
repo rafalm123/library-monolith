@@ -15,7 +15,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.library.monolith.common.config.UserRole.*;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/register","/register_success","/process_register","/index","/list_users").permitAll()
+                .antMatchers("/","/register","/register_success","/process_register","/index","/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -40,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .permitAll()
                 .defaultSuccessUrl("/home",true)
                 .usernameParameter("username")
-                .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
                 .rememberMe()
@@ -70,4 +68,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return provider;
     }
 }
-

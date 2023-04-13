@@ -1,6 +1,5 @@
 package com.library.monolith.common.model.entity.user;
 
-import com.library.monolith.common.config.UserRole;
 import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,9 +27,6 @@ public class LibraryUser extends BaseEntity implements UserDetails{
     private Timestamp createDate;
     @Column(name = "library_code",unique = true)
     private Long libraryCode;
-    @Column(name = "user_role")
-    @Enumerated(EnumType.ORDINAL)
-    private UserRole role;
 
     @OneToMany(mappedBy = "libraryUser",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LibraryUserVersion> libraryUserVersions;

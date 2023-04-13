@@ -22,7 +22,6 @@ public class UserController {
     private UserServiceImplementation userServiceImplementation;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_REGULAR')")
     public ResponseEntity<LibraryUserDetailsDTO> getLibraryUserDtoById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userServiceImplementation.getLibraryUserDetailsDto(id));
     }
