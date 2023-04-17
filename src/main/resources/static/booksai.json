@@ -1,0 +1,49 @@
+{
+  "book": [
+    {
+      "author": "J.K. Rowling",
+      "title": "Harry Potter and the Philosopher's Stone",
+      "publishYear": 1997,
+      "bookReleases": [
+        {
+          "isbn": 9780747532743,
+          "pages": 223,
+          "releaseYear": 1997,
+          "language": "English",
+          "releaseCopies": [
+            {
+              "coverType": "Hardcover",
+              "releaseCopyVersions": [
+                {
+                  "startValidity": "1997-06-26",
+                  "endValidity": "1999-12-31",
+                  "status": "Active",
+                  "notes": "First Edition"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "isbn": 9781408855652,
+          "pages": 332,
+          "releaseYear": 2014,
+          "language": "English",
+          "releaseCopies": [
+            {
+              "coverType": "Paperback",
+              "releaseCopyVersions": [
+                {
+                  "startValidity": "2014-06-26",
+                  "endValidity": "1999-12-31",
+                  "status": "Active",
+                  "notes": "Special Edition"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
