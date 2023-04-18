@@ -1,6 +1,5 @@
 package com.library.monolith.common.model.entity.user;
 
-import com.library.monolith.common.config.UserRole;
 import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;

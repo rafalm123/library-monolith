@@ -1,18 +1,11 @@
 package com.library.monolith.common.model.dto.user;
 
-import com.library.monolith.common.config.PasswordConfig;
-import com.library.monolith.common.config.UserRole;
 import com.library.monolith.common.model.entity.user.LibraryUser;
-import com.library.monolith.common.model.entity.user.LibraryUserVersion;
 import com.library.monolith.common.model.entity.user.Role;
 import com.library.monolith.common.repository.user.LibraryUserRepository;
-import com.library.monolith.common.repository.user.LibraryUserVersionRepository;
 import com.library.monolith.common.repository.user.RoleRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserRegistrationService {

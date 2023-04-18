@@ -21,9 +21,9 @@ import java.util.Set;
 @Table(name = "library_user")
 public class LibraryUser extends BaseEntity implements UserDetails{
 
-    @Column(name = "username",unique = true)
+    @Column(name = "username")
     private String username;
-    @Column(name = "password",unique = true)
+    @Column(name = "password")
     private String password;
     @Column(name = "create_date")
     private Timestamp createDate;
@@ -31,7 +31,7 @@ public class LibraryUser extends BaseEntity implements UserDetails{
     private Long libraryCode;
     @OneToMany(mappedBy = "libraryUser",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LibraryUserVersion> libraryUserVersions;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name="user_id"),

@@ -18,13 +18,14 @@ import java.time.LocalDateTime;
 public class BookExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionDto> handleError(HttpServletRequest request, Exception e) {
-        log.error(getEndpointData(request.getMethod(), request.getRequestURL().toString()) + e.getLocalizedMessage());
+    public ResponseEntity<ExceptionDto> handleError(WebRequest request, Exception e) {
+        log.error(getEndpointData(request) + e.getLocalizedMessage());
         return new ResponseEntity<>(prepareExceptionDto(
                 e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(),
                 request.getContextPath(), ((ServletWebRequest) request).getHttpMethod().name()),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 
     @ExceptionHandler(value = BookException.class)
     public ResponseEntity<ExceptionDto> handleBookException(BookException e, WebRequest request) {
@@ -37,8 +38,7 @@ public class BookExceptionHandler {
 
     private HttpStatus resolveStatus(BookException bookException) {
         return switch (bookException.getBookError()) {
-            case BOOK_RELEASE_NOT_FOUND -> HttpStatus.NOT_FOUND;
-            case SOME_OTHER_CASE_ERROR -> HttpStatus.NOT_FOUND;
+            case BOOK_RELEASE_NOT_FOUND, SOME_OTHER_CASE_ERROR -> HttpStatus.NOT_FOUND;
         };
     }
 

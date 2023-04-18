@@ -15,7 +15,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.library.monolith.common.config.UserRole.*;
 
 @Configuration
 @EnableWebSecurity

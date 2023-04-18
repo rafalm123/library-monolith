@@ -12,6 +12,8 @@ import com.library.monolith.common.model.entity.user.LibraryUser;
 import com.library.monolith.common.model.entity.user.LibraryUserVersion;
 import com.library.monolith.common.model.entity.user.Role;
 import com.library.monolith.common.repository.user.LibraryUserRepository;
+import com.library.monolith.common.repository.user.RoleRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -26,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/")
 public class TemplateController {
 
@@ -33,23 +36,7 @@ public class TemplateController {
     private final PasswordEncoder passwordEncoder;
     private final BookServiceImplementation bookServiceImplementation;
     private final UserServiceImplementation userServiceImplementation;
-    private final UserRegistrationService userRegistrationService;
-
-    @Autowired
-    public TemplateController(LibraryUserRepository libraryUserRepository,
-                              PasswordEncoder passwordEncoder,
-                              BookServiceImplementation bookServiceImplementation,
-                              UserServiceImplementation userServiceImplementation,
-                              UserRegistrationService userRegistrationService) {
-        this.libraryUserRepository = libraryUserRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.bookServiceImplementation = bookServiceImplementation;
-        this.userServiceImplementation = userServiceImplementation;
-        this.userRegistrationService = userRegistrationService;
-    }
-
-    @Autowired
-
+    private final RoleRepository roleRepository;
 
     @GetMapping("/login")
     public String getLogin() {
@@ -102,25 +89,32 @@ public class TemplateController {
         return "signup";
     }
 
-    @PostMapping("/process_register")
+    @PostMapping("/process_register") //for some reason this spaghetti works, but when i try to simplify it throws 300+ lines stacktrace ;(
     public String processRegistration(@ModelAttribute("user") LibraryUserRegistrationDTO libraryUserRegistrationDTO) {
         LibraryUser libraryUser = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUser(libraryUserRegistrationDTO);
         LibraryUserVersion libraryUserVersion = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUserVersion(libraryUserRegistrationDTO);
         Address address = LibraryUserRegistrationDtoMapper.getInstance().toAddress(libraryUserRegistrationDTO);
-
-        libraryUser.setPassword(passwordEncoder.encode(libraryUser.getPassword()));
 
         libraryUserVersion.setLibraryUser(libraryUser);
         libraryUserVersion.setAddress(address);
         address.setLibraryUserVersion(libraryUserVersion);
 
         libraryUser.setLibraryUserVersions(Collections.singletonList(libraryUserVersion));
-        userRegistrationService.registerDefaultUser(libraryUser);
+        libraryUser.setPassword(passwordEncoder.encode(libraryUser.getPassword()));
+
+        Role roleUser = roleRepository.findByName("REGULAR");
+        if (roleUser == null) {
+            System.out.println("Role not found in the database.");
+        } else {
+            System.out.println("Role found: " + roleUser.getName());
+            libraryUser.addRole(roleUser);
+        }
 
         libraryUserRepository.save(libraryUser);
 
         return "register_success";
     }
+
 
     @GetMapping("logout_redirect")
     public String getLogoutFirst() {
