@@ -5,6 +5,7 @@ import com.library.monolith.common.exception.user.UserException;
 import com.library.monolith.common.mapping.user.LibraryUserDetailsDtoMapper;
 import com.library.monolith.common.mapping.user.LibraryUserOverviewDtoMapper;
 import com.library.monolith.common.model.entity.user.LibraryUserVersion;
+import com.library.monolith.common.model.entity.user.Role;
 import com.library.monolith.common.repository.user.LibraryUserRepository;
 import com.library.monolith.common.repository.user.LibraryUserVersionRepository;
 import lombok.AllArgsConstructor;
@@ -49,7 +50,8 @@ public class UserServiceImplementation implements UserDetailsService,UserService
         List<LibraryUserVersion> libraryUserVersions = libraryUserVersionRepository.findAll();
         return libraryUserVersions.stream().map(libraryUserVersion ->
                         LibraryUserOverviewDtoMapper.getInstance()
-                                .toLibraryUserOverviewDto(libraryUserVersion.getLibraryUser(), libraryUserVersion))
+                                .toLibraryUserOverviewDto(libraryUserVersion.getLibraryUser(),
+                                        libraryUserVersion))
                 .collect(Collectors.toList());
     }
 
