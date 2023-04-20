@@ -12,6 +12,9 @@ public interface BookService {
 
     List<BookOverviewDTO> getBookOverviewDtoList();
 
-    Page<BookOverviewDTO> getBookOverviewPage(BookOverviewQueryDto queryDto);
+    Page<BookOverviewDTO> getBookOverviewPage(BookOverviewQueryDTO queryDto);
+
+    BookDetailsDTO addBook (BookCreateDTO bookCreateDTO);
+
 
 }

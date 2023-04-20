@@ -1,6 +1,7 @@
 package com.library.monolith.common.controller;
 
 import com.library.monolith.common.mapping.user.LibraryUserRegistrationDtoMapper;
+import com.library.monolith.common.model.dto.book.BookCreateDTO;
 import com.library.monolith.common.model.dto.book.BookOverviewDTO;
 import com.library.monolith.common.model.dto.book.BookServiceImplementation;
 import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
@@ -89,7 +90,8 @@ public class TemplateController {
         return "signup";
     }
 
-    @PostMapping("/process_register") //for some reason this spaghetti works, but when i try to simplify it throws 300+ lines stacktrace ;(
+    @PostMapping("/process_register")
+    //for some reason this spaghetti works, but when i try to simplify it throws 300+ lines stacktrace ;(
     public String processRegistration(@ModelAttribute("user") LibraryUserRegistrationDTO libraryUserRegistrationDTO) {
         LibraryUser libraryUser = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUser(libraryUserRegistrationDTO);
         LibraryUserVersion libraryUserVersion = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUserVersion(libraryUserRegistrationDTO);
@@ -115,6 +117,17 @@ public class TemplateController {
         return "register_success";
     }
 
+    @GetMapping("/add_book")
+    public String showAddBookForm(Model model) {
+        model.addAttribute("bookCreateDTO", new BookCreateDTO());
+        return "add_book_form";
+    }
+
+    @PostMapping("/process_book")
+    public String processBook(@ModelAttribute("bookCreateDTO") BookCreateDTO bookCreateDTO) {
+        bookServiceImplementation.addBook(bookCreateDTO);
+        return "redirect:/home";
+    }
 
     @GetMapping("logout_redirect")
     public String getLogoutFirst() {

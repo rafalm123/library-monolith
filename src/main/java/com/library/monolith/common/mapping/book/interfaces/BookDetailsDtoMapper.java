@@ -1,4 +1,4 @@
-package com.library.monolith.common.mapping.book;
+package com.library.monolith.common.mapping.book.interfaces;
 
 import com.library.monolith.common.model.dto.book.BookDetailsDTO;
 import com.library.monolith.common.model.entity.book.Book;

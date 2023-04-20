@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -14,9 +16,9 @@ import java.sql.Timestamp;
 public class ReleaseCopyVersion extends BaseEntity {
 
     @Column(name="start_validity")
-    private Timestamp startValidity;
+    private Timestamp startValidity = Timestamp.from(Instant.now());
     @Column(name="end_validity")
-    private Timestamp endValidity;
+    private Timestamp endValidity = null;
     @Column(name="status")
     private String status;
     @Column(name="notes")

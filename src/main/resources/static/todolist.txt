@@ -1,3 +1,5 @@
 TemplateController -   process-registration - fix this spaghetti
 JWT Token Authentication
-roles permissions
+roles permission
+email after registration
+root user

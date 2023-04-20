@@ -35,7 +35,7 @@ CREATE TABLE release_copy_version
     id              BIGINT      NOT NULL PRIMARY KEY,
     release_copy_id BIGINT REFERENCES release_copy (id) ON DELETE CASCADE,
     start_validity  TIMESTAMP   NOT NULL,
-    end_validity    TIMESTAMP   NOT NULL,
+    end_validity    TIMESTAMP   ,
     status          VARCHAR(15) NOT NULL,
     notes           VARCHAR(200)
 );
