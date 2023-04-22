@@ -1,6 +1,7 @@
 package com.library.monolith.common.controller.book;
 
 import com.library.monolith.common.model.dto.book.*;
+import com.library.monolith.common.service.book.BookServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

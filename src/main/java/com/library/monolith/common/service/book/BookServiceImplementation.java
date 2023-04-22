@@ -1,15 +1,19 @@
-package com.library.monolith.common.model.dto.book;
+package com.library.monolith.common.service.book;
 
 import com.library.monolith.common.exception.book.BookError;
 import com.library.monolith.common.exception.book.BookException;
-import com.library.monolith.common.mapping.book.interfaces.BookCreateDtoMapper;
-import com.library.monolith.common.mapping.book.interfaces.BookOverviewDtoMapper;
+import com.library.monolith.common.mapping.book.BookCreateDtoMapper;
+import com.library.monolith.common.mapping.book.BookOverviewDtoMapper;
+import com.library.monolith.common.model.dto.book.BookCreateDTO;
+import com.library.monolith.common.model.dto.book.BookDetailsDTO;
+import com.library.monolith.common.model.dto.book.BookOverviewDTO;
+import com.library.monolith.common.model.dto.book.BookOverviewQueryDTO;
 import com.library.monolith.common.model.entity.book.Book;
 import com.library.monolith.common.model.entity.book.BookRelease;
 import com.library.monolith.common.model.entity.book.ReleaseCopy;
 import com.library.monolith.common.model.entity.book.ReleaseCopyVersion;
 import com.library.monolith.common.repository.book.BookReleaseRepository;
-import com.library.monolith.common.mapping.book.interfaces.BookDetailsDtoMapper;
+import com.library.monolith.common.mapping.book.BookDetailsDtoMapper;
 import com.library.monolith.common.repository.book.BookRepository;
 import com.library.monolith.common.repository.book.ReleaseCopyRepository;
 import com.library.monolith.common.repository.book.ReleaseCopyVersionRepository;
@@ -57,7 +61,7 @@ public class BookServiceImplementation implements BookService {
 
     public Page<BookOverviewDTO> getBookOverviewPage(BookOverviewQueryDTO queryDto){
         List<BookOverviewDTO> list = getBookOverviewDtoList();
-        return new PageImpl<>(list,PageRequest.of(queryDto.page, queryDto.pageSize), list.size());
+        return new PageImpl<>(list,PageRequest.of(queryDto.getPage(), queryDto.getPageSize()), list.size());
     }
 
     public BookDetailsDTO addBook(BookCreateDTO bookCreateDTO){

@@ -3,11 +3,13 @@ package com.library.monolith.common.model.entity.user;
 
 import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @Data
 @Entity
 @AllArgsConstructor

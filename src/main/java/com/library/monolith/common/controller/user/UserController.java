@@ -2,14 +2,12 @@ package com.library.monolith.common.controller.user;
 
 import com.library.monolith.common.model.dto.user.LibraryUserDetailsDTO;
 import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
-import com.library.monolith.common.model.dto.user.UserServiceImplementation;
+import com.library.monolith.common.model.dto.user.LibraryUserRegistrationDTO;
+import com.library.monolith.common.service.user.UserServiceImplementation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +20,6 @@ public class UserController {
     private UserServiceImplementation userServiceImplementation;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_REGULAR')")
     public ResponseEntity<LibraryUserDetailsDTO> getLibraryUserDtoById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userServiceImplementation.getLibraryUserDetailsDto(id));
     }
@@ -32,4 +29,10 @@ public class UserController {
         return ResponseEntity.ok(userServiceImplementation.getLibraryUserOverviewDtoList());
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<LibraryUserOverviewDTO> register(
+            @RequestBody LibraryUserRegistrationDTO request
+    ) {
+        return ResponseEntity.ok(userServiceImplementation.addUser(request));
+    }
 }

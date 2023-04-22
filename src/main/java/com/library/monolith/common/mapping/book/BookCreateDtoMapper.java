@@ -1,7 +1,6 @@
-package com.library.monolith.common.mapping.book.interfaces;
+package com.library.monolith.common.mapping.book;
 
 import com.library.monolith.common.model.dto.book.BookCreateDTO;
-import com.library.monolith.common.model.dto.book.BookDetailsDTO;
 import com.library.monolith.common.model.entity.book.Book;
 import com.library.monolith.common.model.entity.book.BookRelease;
 import com.library.monolith.common.model.entity.book.ReleaseCopy;

@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
@@ -17,6 +18,11 @@ import java.io.IOException;
 @SpringBootApplication
 @EnableJpaRepositories
 public class LibraryMonolith {
+
+    @Bean
+    public PasswordEncoder passwordEncoderMain() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public ObjectMapper objectMapper(){
@@ -39,10 +45,8 @@ public class LibraryMonolith {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(LibraryMonolith.class, args);
         BookEntityMapper bookMapper = context.getBean(BookEntityMapper.class);
-//        UserEntityMapper userMapper = context.getBean(UserEntityMapper.class);
         try {
             bookMapper.saveBooksFromJson();
-//            userMapper.saveUserFromJson();
         } catch (IOException e){
             e.printStackTrace();
         }

@@ -1,5 +1,0 @@
-TemplateController -   process-registration - fix this spaghetti
-JWT Token Authentication
-roles permission
-email after registration
-root user

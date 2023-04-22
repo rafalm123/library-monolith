@@ -9,4 +9,5 @@ public interface LibraryUserRepository extends JpaRepository<LibraryUser, Long> 
 
     Optional<LibraryUser> findByUsername(String username);
 
+    Optional<LibraryUser> findByLibraryCode(Long libraryCode);
 }

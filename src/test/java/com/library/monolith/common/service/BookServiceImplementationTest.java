@@ -1,9 +1,9 @@
 //package com.library.monolith.common.service;
 //
 //import com.library.monolith.common.exception.book.BookException;
-//import com.library.monolith.common.mapping.book.interfaces.BookDetailsDtoMapper;
+//import com.library.monolith.common.mapping.book.BookDetailsDtoMapper;
 //import com.library.monolith.common.model.dto.book.BookDetailsDTO;
-//import com.library.monolith.common.model.dto.book.BookServiceImplementation;
+//import com.library.monolith.common.service.book.BookServiceImplementation;
 //import com.library.monolith.common.model.entity.book.Book;
 //import com.library.monolith.common.model.entity.book.BookRelease;
 //import com.library.monolith.common.repository.book.BookReleaseRepository;

@@ -1,7 +1,6 @@
 package com.library.monolith.common.exception.user;
 
 import com.library.monolith.common.exception.ExceptionDto;
-import com.library.monolith.common.exception.book.BookException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +12,6 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
-
-import static com.library.monolith.common.exception.user.UserError.OTHER_ERROR;
-import static com.library.monolith.common.exception.user.UserError.USER_VERSION_NOT_FOUND;
 
 @Slf4j
 @RestControllerAdvice
@@ -41,8 +37,8 @@ public class UserExceptionHandler {
 
     private HttpStatus resolveStatus(UserException userException) {
         return switch (userException.getUserError()) {
-            case USER_VERSION_NOT_FOUND -> HttpStatus.NOT_FOUND;
-            case OTHER_ERROR -> HttpStatus.NOT_FOUND;
+            case LIBRARY_USER_VERSION_NOT_FOUND, LIBRARY_USER_NOT_FOUND -> HttpStatus.NOT_FOUND;
+            case OTHER_ERROR -> null;
         };
     }
 
