@@ -5,6 +5,7 @@ import com.library.monolith.common.exception.user.UserException;
 import com.library.monolith.common.mapping.user.LibraryUserDetailsDtoMapper;
 import com.library.monolith.common.mapping.user.LibraryUserOverviewDtoMapper;
 import com.library.monolith.common.mapping.user.LibraryUserRegistrationDtoMapper;
+import com.library.monolith.common.model.dto.user.LibraryUserDeleteDTO;
 import com.library.monolith.common.model.dto.user.LibraryUserDetailsDTO;
 import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
 import com.library.monolith.common.model.dto.user.LibraryUserRegistrationDTO;
@@ -26,10 +27,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,10 +75,6 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(Set<Role> roles){
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-    }
-
     public LibraryUserOverviewDTO addUser(LibraryUserRegistrationDTO registrationDTO){
         LibraryUserRegistrationDtoMapper getInstance = LibraryUserRegistrationDtoMapper.getInstance();
         LibraryUser libraryUser = getInstance.toLibraryUser(registrationDTO);
@@ -98,6 +92,21 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
         addressRepository.save(address);
 
         return LibraryUserOverviewDtoMapper.getInstance().toLibraryUserOverviewDto(libraryUser,libraryUserVersion);
+    }
+
+    public void deleteUser(LibraryUserDeleteDTO deleteDTO){
+        LibraryUser libraryUser = libraryUserRepository.findByUsernameAndLibraryCode(deleteDTO.getUsername()
+                , deleteDTO.getLibraryCode()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        libraryUserRepository.delete(libraryUser);
+    }
+
+    public void editUser(LibraryUserRegistrationDTO registrationDTO){
+
+        LibraryUser libraryUser = libraryUserRepository.findByUsername(registrationDTO.getUsername()
+        ).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        li
     }
 }
 

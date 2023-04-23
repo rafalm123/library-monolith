@@ -7,12 +7,11 @@ Library Monolith is a web application that serves as a digital library for manag
 - User login and registration system with password encoded in database
 - Data protection using DTO Design Pattern
 - CRUD operations of searching books and users
-- 
+- JWT Token Authentication
 
 
 ## Future Development
 - Book Borrowing System
-- JWT Token Authentication
 - Testing
 - Frontend
 
