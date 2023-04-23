@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log Out First</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script>
+        function logout(event) {
+            event.preventDefault();
+            localStorage.removeItem("jwt");
+            window.location.href = "/auth/login";
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 text-center">
             <h1>First you need to log out</h1>
-            <form method="get" action="/logout">
+            <form method="get" action="#" onsubmit="logout(event)">
                 <button class="btn btn-primary" type="submit">Logout</button>
             </form>
         </div>
@@ -19,4 +26,3 @@
 </div>
 </body>
 </html>
-

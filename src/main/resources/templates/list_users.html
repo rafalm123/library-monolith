@@ -20,6 +20,7 @@
         <th>Surname</th>
         <th>Library Code</th>
         <th>E-mail</th>
+        <th>Role</th>
     </tr>
 
     </thead>
@@ -29,6 +30,7 @@
         <td th:text="${libraryUserOverviewDTO.surname}">Title</td>
         <td th:text="${libraryUserOverviewDTO.libraryCode}">Language</td>
         <td th:text="${libraryUserOverviewDTO.email}">Language</td>
+        <td th:text="${libraryUserOverviewDTO.role}">Role</td>
         <td><a th:href="@{'/users/edit/' + ${libraryUserOverviewDTO.libraryCode}}">Edit</a></td>
     </tr>
     </tbody>

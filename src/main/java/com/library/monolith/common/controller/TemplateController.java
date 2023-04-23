@@ -1,16 +1,14 @@
 package com.library.monolith.common.controller;
 
-import com.library.monolith.common.mapping.user.LibraryUserRegistrationDtoMapper;
+import com.library.monolith.common.model.dto.book.BookCreateDTO;
 import com.library.monolith.common.model.dto.book.BookOverviewDTO;
-import com.library.monolith.common.model.dto.book.BookServiceImplementation;
+import com.library.monolith.common.service.book.BookServiceImplementation;
 import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
 import com.library.monolith.common.model.dto.user.LibraryUserRegistrationDTO;
-import com.library.monolith.common.model.dto.user.UserServiceImplementation;
-import com.library.monolith.common.model.entity.user.Address;
-import com.library.monolith.common.model.entity.user.LibraryUser;
-import com.library.monolith.common.model.entity.user.LibraryUserVersion;
+import com.library.monolith.common.service.user.UserServiceImplementation;
 import com.library.monolith.common.repository.user.LibraryUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.library.monolith.common.repository.user.RoleRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,10 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/")
 public class TemplateController {
 
@@ -30,28 +28,18 @@ public class TemplateController {
     private final PasswordEncoder passwordEncoder;
     private final BookServiceImplementation bookServiceImplementation;
     private final UserServiceImplementation userServiceImplementation;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    public TemplateController(LibraryUserRepository libraryUserRepository,
-                              PasswordEncoder passwordEncoder,
-                              BookServiceImplementation bookServiceImplementation,
-                              UserServiceImplementation userServiceImplementation) {
-        this.libraryUserRepository = libraryUserRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.bookServiceImplementation = bookServiceImplementation;
-        this.userServiceImplementation = userServiceImplementation;
-    }
-
-    @Autowired
-
-
-    @GetMapping("/login")
-    public String getLogin() {
+    @GetMapping("auth/login")
+    public String getLogin(@RequestParam(value = "error", required = false) String error, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/logout_redirect";
+            return "redirect:/logout_first";
         }
-        return "login";
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password.");
+        }
+        return "auth_login";
     }
 
     @GetMapping("/home")
@@ -66,7 +54,7 @@ public class TemplateController {
     public String getIndex() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/logout_redirect";
+            return "redirect:/logout_first";
         }
         return "index";
     }
@@ -89,7 +77,7 @@ public class TemplateController {
     public String showSignUpForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/logout_redirect";
+            return "redirect:/logout_first";
         }
 
         model.addAttribute("user", new LibraryUserRegistrationDTO());
@@ -98,21 +86,20 @@ public class TemplateController {
 
     @PostMapping("/process_register")
     public String processRegistration(@ModelAttribute("user") LibraryUserRegistrationDTO libraryUserRegistrationDTO) {
-        LibraryUser libraryUser = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUser(libraryUserRegistrationDTO);
-        LibraryUserVersion libraryUserVersion = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUserVersion(libraryUserRegistrationDTO);
-        Address address = LibraryUserRegistrationDtoMapper.getInstance().toAddress(libraryUserRegistrationDTO);
-
-        libraryUser.setPassword(passwordEncoder.encode(libraryUser.getPassword()));
-
-        libraryUserVersion.setLibraryUser(libraryUser);
-        libraryUserVersion.setAddress(address);
-        address.setLibraryUserVersion(libraryUserVersion);
-
-        libraryUser.setLibraryUserVersions(Collections.singletonList(libraryUserVersion));
-
-        libraryUserRepository.save(libraryUser);
-
+        userServiceImplementation.addUser(libraryUserRegistrationDTO);
         return "register_success";
+    }
+
+    @GetMapping("/add_book")
+    public String showAddBookForm(Model model) {
+        model.addAttribute("bookCreateDTO", new BookCreateDTO());
+        return "add_book_form";
+    }
+
+    @PostMapping("/process_book")
+    public String processBook(@ModelAttribute("bookCreateDTO") BookCreateDTO bookCreateDTO) {
+        bookServiceImplementation.addBook(bookCreateDTO);
+        return "process_book_success";
     }
 
     @GetMapping("logout_redirect")
@@ -125,3 +112,4 @@ public class TemplateController {
         return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 }
+

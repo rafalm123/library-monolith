@@ -31,21 +31,13 @@ public interface LibraryUserRegistrationDtoMapper {
                                                             LibraryUserVersion libraryUserVersion,
                                                             Address address);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createDate", expression = "java(java.sql.Timestamp.from(java.time.Instant.now()))")
     @Mapping(target = "libraryCode", expression = "java(new java.util.Random().nextLong(900000000) + 100000000)")
-    @Mapping(target = "libraryUserVersions", ignore = true)
     LibraryUser toLibraryUser(LibraryUserRegistrationDTO libraryUserRegistrationDto);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "start_validity", expression = "java(java.sql.Timestamp.from(java.time.Instant.now()))")
     @Mapping(target = "end_validity", expression = "java(java.sql.Timestamp.from(java.time.Instant.now().plus(java.time.Duration.ofDays(180))))")
-    @Mapping(target = "debt", ignore = true)
-    @Mapping(target = "libraryUser", ignore = true)
-    @Mapping(target = "address", ignore = true)
     LibraryUserVersion toLibraryUserVersion(LibraryUserRegistrationDTO libraryUserRegistrationDto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "libraryUserVersion", ignore = true)
     Address toAddress(LibraryUserRegistrationDTO libraryUserRegistrationDTO);
 }

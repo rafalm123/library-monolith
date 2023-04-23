@@ -1,0 +1,160 @@
+TemplateController -   process-registration - fix this spaghetti
+JWT Token Authentication
+roles permission
+email after registration
+root user
+in case we add sth that already exist like author, user etc. dont throw the exception but show it as a "suggestion" for user
+
+
+//package com.library.monolith.common.security;
+//
+//import com.library.monolith.common.model.dto.user.LibraryUserRegistrationDTO;
+//import com.library.monolith.common.model.entity.user.Address;
+//import com.library.monolith.common.model.entity.user.LibraryUser;
+//import com.library.monolith.common.model.entity.user.LibraryUserVersion;
+//import com.library.monolith.common.repository.user.LibraryUserRepository;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.stereotype.Service;
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//@Service
+//@RequiredArgsConstructor
+//public class AuthenticationService {
+//
+//
+//    private LibraryUserRepository repository;
+//    private PasswordEncoder passwordEncoder;
+//    private JwtService jwtService;
+//    private final AuthenticationManager authenticationManager;
+//
+//    public AuthenticationResponse register(LibraryUserRegistrationDTO request) {
+//
+//        var address = Address.builder()
+//                .street(request.getStreet())
+//                .city(request.getCity())
+//                .state(request.getState())
+//                .postalCode(request.getPostalCode())
+//                .country(request.getCountry())
+//                .build();
+//
+//        var userVersion = LibraryUserVersion.builder()
+//                .name(request.getName())
+//                .surname(request.getSurname())
+//                .nickname(request.getNickname())
+//                .email(request.getEmail())
+//                .address(address)
+//                .build();
+//
+//        List<LibraryUserVersion> libraryUserVersions = new ArrayList<>();
+//        libraryUserVersions.add(userVersion);
+//
+//        var user = LibraryUser.builder()
+//                .username(request.getUsername())
+//                .password(passwordEncoder.encode(request.getPassword()))
+//                .libraryUserVersions(libraryUserVersions)
+//                .build();
+//
+////        LibraryUser libraryUser = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUser(libraryUserRegistrationDTO);
+////        LibraryUserVersion libraryUserVersion = LibraryUserRegistrationDtoMapper.getInstance().toLibraryUserVersion(libraryUserRegistrationDTO);
+////        Address address = LibraryUserRegistrationDtoMapper.getInstance().toAddress(libraryUserRegistrationDTO);
+////
+////        libraryUserVersion.setLibraryUser(libraryUser);
+////        libraryUserVersion.setAddress(address);
+////        address.setLibraryUserVersion(libraryUserVersion);
+////
+////        libraryUser.setLibraryUserVersions(Collections.singletonList(libraryUserVersion));
+////        libraryUser.setPassword(passwordEncoder.encode(libraryUser.getPassword()));
+////
+////        Role roleUser = roleRepository.findByName("REGULAR");
+////        if (roleUser == null) {
+////            System.out.println("Role not found in the database.");
+////        } else {
+////            System.out.println("Role found: " + roleUser.getName());
+////            libraryUser.addRole(roleUser);
+////        }
+////
+////        libraryUserRepository.save(libraryUser);
+////
+////        repository.save(user);
+//
+//        var jwtToken = jwtService.generateToken(user);
+//        return AuthenticationResponse.builder()
+//                .token(jwtToken)
+//                .build();
+//    }
+//
+//
+//    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        request.getUsername(),
+//                        request.getPassword()
+//                )
+//        );
+//        var user = repository.findByUsername(request.getUsername())
+//                .orElseThrow();
+//        var jwtToken = jwtService.generateToken(user);
+//        return AuthenticationResponse.builder()
+//                .token(jwtToken)
+//                .build();
+//    }
+//}
+
+
+SECUIRITY CONFIG
+
+
+//                .formLogin()
+//                .loginPage("/login")
+//                .loginProcessingUrl("/auth/authenticate")
+//                .failureUrl("/login?error")
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .permitAll()
+//                .and()
+//                .httpBasic().disable()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authenticationProvider(authenticationProvider)
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/","/register","/register_success",
+//                        "/process_register","/index","/auth/login").permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .defaultSuccessUrl("/home",true)
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .and()
+//                .rememberMe()
+//                .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
+//                .key("somethingverysecured")
+//                .rememberMeParameter("remember-me")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
+//                .clearAuthentication(true)
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID","remember-me")
+//                .logoutSuccessUrl("/login");
+//    }
+
+//
+
