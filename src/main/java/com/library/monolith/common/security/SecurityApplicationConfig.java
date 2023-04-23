@@ -55,16 +55,13 @@ public class SecurityApplicationConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/register",
-                        "/process_register", "/auth/**").permitAll()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/","/register","/register_success",
+                        "/process_register","/index","/auth/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
                 .httpBasic();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
