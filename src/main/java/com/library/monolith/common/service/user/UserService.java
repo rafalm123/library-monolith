@@ -1,11 +1,7 @@
 package com.library.monolith.common.service.user;
 
 
-import com.library.monolith.common.model.dto.user.LibraryUserDeleteDTO;
-import com.library.monolith.common.model.dto.user.LibraryUserDetailsDTO;
-import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
-import com.library.monolith.common.model.dto.user.LibraryUserRegistrationDTO;
-import com.library.monolith.common.model.entity.user.LibraryUser;
+import com.library.monolith.common.model.dto.user.*;
 
 import java.util.List;
 
@@ -19,9 +15,9 @@ public interface UserService {
 
 //    Page<LibraryUserOverviewDTO> getLibraryUserOverviewPage();
 
-    LibraryUserOverviewDTO addUser(LibraryUserRegistrationDTO registrationDTO);
+    LibraryUserOverviewDTO registerUser(LibraryUserRegistrationDTO registrationDTO);
 
-    void deleteUser (LibraryUserDeleteDTO deleteDTO);
+    String deleteUser (LibraryUserDeleteDTO deleteDTO);
 
-    void editUser (LibraryUserRegistrationDTO registrationDTO);
+    String editUser(String username, LibraryUserUpdateDTO libraryUserUpdateDTO);
 }

@@ -30,9 +30,9 @@ public class LibraryUserVersion extends BaseEntity {
     @Column(name = "debt")
     private BigDecimal debt;
     @Column(name = "start_validity")
-    private Timestamp start_validity;
+    private Timestamp startValidity= Timestamp.from(Instant.now());
     @Column(name = "end_validity")
-    private Timestamp end_validity;
+    private Timestamp endValidity;
     @ManyToOne
     @JoinColumn(name = "library_user_id",referencedColumnName = "id")
     private LibraryUser libraryUser;
@@ -49,7 +49,7 @@ public class LibraryUserVersion extends BaseEntity {
         this.nickname = nickname;
         this.email = email;
         this.debt = null;
-        this.start_validity = Timestamp.from(Instant.now());
-        this.end_validity = null;
+        this.startValidity = Timestamp.from(Instant.now());
+        this.endValidity = null;
     }
 }

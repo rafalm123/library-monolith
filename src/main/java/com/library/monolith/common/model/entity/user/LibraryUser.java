@@ -11,10 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Builder
@@ -80,8 +77,9 @@ public class LibraryUser extends BaseEntity implements UserDetails{
         return true;
     }
 
-    public void addRole(Role role){
-        this.roles.add(role);
+    public LibraryUserVersion getLatestVersion() {
+        return this.getLibraryUserVersions().stream()
+                .max(Comparator.comparing(LibraryUserVersion::getStartValidity))
+                .orElseThrow(() -> new RuntimeException("No version found"));
     }
-
 }

@@ -61,7 +61,7 @@ CREATE TABLE library_user_version
     email           TEXT      NOT NULL UNIQUE,
     debt            DECIMAL DEFAULT 0,
     start_validity  TIMESTAMP NOT NULL,
-    end_validity    TIMESTAMP NOT NULL
+    end_validity    TIMESTAMP
 );
 
 DROP TABLE IF EXISTS address;

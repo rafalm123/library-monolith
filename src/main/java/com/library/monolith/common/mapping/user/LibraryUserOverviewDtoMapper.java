@@ -18,17 +18,11 @@ public interface LibraryUserOverviewDtoMapper {
         return Mappers.getMapper(LibraryUserOverviewDtoMapper.class);
     }
 
-    default String mapRoles(Set<Role> roles) {
-        return roles.stream()
-                .map(Role::getName)
-                .collect(Collectors.joining(", "));
-    }
 
     @Mapping(source = "libraryUserVersion.name", target = "name")
     @Mapping(source = "libraryUserVersion.surname", target = "surname")
     @Mapping(source = "libraryUser.libraryCode", target = "libraryCode")
     @Mapping(source = "libraryUserVersion.email", target = "email")
-    @Mapping(target = "role", expression = "java(mapRoles(libraryUser.getRoles()))")
     LibraryUserOverviewDTO toLibraryUserOverviewDto(LibraryUser libraryUser,
                                                     LibraryUserVersion libraryUserVersion
     );

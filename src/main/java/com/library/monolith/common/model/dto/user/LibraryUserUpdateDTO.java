@@ -1,19 +1,22 @@
 package com.library.monolith.common.model.dto.user;
 
-import com.library.monolith.common.model.entity.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.mapstruct.Mapping;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class LibraryUserOverviewDTO {
+@NoArgsConstructor
+public class LibraryUserUpdateDTO {
 
     private String name;
     private String surname;
-    private Long libraryCode;
+    private String nickname;
     private String email;
+    private String street;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String country;
 
 }

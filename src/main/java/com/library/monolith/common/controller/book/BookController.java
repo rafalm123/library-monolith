@@ -17,7 +17,7 @@ public class BookController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookDetailsDTO> getBookDetailsDtoById(@PathVariable("id") Long id) {
+    public ResponseEntity<BookDetailsDTO> getBookDetailsDtoByReleaseId(@PathVariable("id") Long id) {
         return ResponseEntity.ok(bookServiceImplementation.getBookDetailsDto(id));
     }
 
@@ -26,14 +26,19 @@ public class BookController {
         return ResponseEntity.ok(bookServiceImplementation.getBookOverviewDtoList());
     }
 
-    @GetMapping("/list")
+    @GetMapping("/pagination")
     public ResponseEntity<Page<BookOverviewDTO>> getBookOverviewDtosPage(@RequestBody BookOverviewQueryDTO queryDto){
         return ResponseEntity.ok(bookServiceImplementation.getBookOverviewPage(queryDto));
     }
 
-    @PostMapping()
-    public ResponseEntity<BookDetailsDTO> addBook(@RequestBody BookCreateDTO bookCreateDTO){
+    @PostMapping("/add")
+    public ResponseEntity<String> addBook(@RequestBody BookCreateDTO bookCreateDTO){
         return ResponseEntity.ok(bookServiceImplementation.addBook(bookCreateDTO));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteBook(@RequestBody BookDeleteDTO bookDeleteDTO){
+        return ResponseEntity.ok(bookServiceImplementation.deleteBook(bookDeleteDTO));
     }
 
 }
