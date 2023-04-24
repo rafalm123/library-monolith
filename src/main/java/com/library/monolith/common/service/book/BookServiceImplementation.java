@@ -4,10 +4,7 @@ import com.library.monolith.common.exception.book.BookError;
 import com.library.monolith.common.exception.book.BookException;
 import com.library.monolith.common.mapping.book.BookCreateDtoMapper;
 import com.library.monolith.common.mapping.book.BookOverviewDtoMapper;
-import com.library.monolith.common.model.dto.book.BookCreateDTO;
-import com.library.monolith.common.model.dto.book.BookDetailsDTO;
-import com.library.monolith.common.model.dto.book.BookOverviewDTO;
-import com.library.monolith.common.model.dto.book.BookOverviewQueryDTO;
+import com.library.monolith.common.model.dto.book.*;
 import com.library.monolith.common.model.entity.book.Book;
 import com.library.monolith.common.model.entity.book.BookRelease;
 import com.library.monolith.common.model.entity.book.ReleaseCopy;
@@ -17,6 +14,7 @@ import com.library.monolith.common.mapping.book.BookDetailsDtoMapper;
 import com.library.monolith.common.repository.book.BookRepository;
 import com.library.monolith.common.repository.book.ReleaseCopyRepository;
 import com.library.monolith.common.repository.book.ReleaseCopyVersionRepository;
+import com.library.monolith.common.repository.user.LibraryUserRepository;
 import lombok.AllArgsConstructor;
 import lombok.val;
 import org.springframework.data.domain.Page;
@@ -34,6 +32,7 @@ public class BookServiceImplementation implements BookService {
     private final BookRepository bookRepository;
     private final ReleaseCopyRepository releaseCopyRepository;
     private final ReleaseCopyVersionRepository releaseCopyVersionRepository;
+    private final LibraryUserRepository libraryUserRepository;
 
     public BookDetailsDTO getBookDetailsDto(Long id) {
           val bookRelease = bookReleaseRepository.findById(id).orElseThrow(() -> {
@@ -64,20 +63,35 @@ public class BookServiceImplementation implements BookService {
         return new PageImpl<>(list,PageRequest.of(queryDto.getPage(), queryDto.getPageSize()), list.size());
     }
 
-    public BookDetailsDTO addBook(BookCreateDTO bookCreateDTO){
+    public String addBook(BookCreateDTO bookCreateDTO){
         BookCreateDtoMapper getInstance = BookCreateDtoMapper.getInstance;
         Book book = getInstance.toBook(bookCreateDTO);
-        bookRepository.save(book);
-
+        if (bookRepository.findByAuthorAndTitle(book.getAuthor(),book.getTitle()).isEmpty()) {
+            bookRepository.save(book);
+        }
         BookRelease bookRelease = getInstance.toBookRelease(bookCreateDTO, book);
+        bookRelease.setBook(book);
         bookReleaseRepository.save(bookRelease);
 
         ReleaseCopy releaseCopy = getInstance.toReleaseCopy(bookCreateDTO, bookRelease);
+        releaseCopy.setBookRelease(bookRelease);
         releaseCopyRepository.save(releaseCopy);
 
         ReleaseCopyVersion releaseCopyVersion = getInstance.toReleaseCopyVersion(bookCreateDTO, releaseCopy);
+        releaseCopyVersion.setReleaseCopy(releaseCopy);
         releaseCopyVersionRepository.save(releaseCopyVersion);
 
-        return BookDetailsDtoMapper.getInstance().toBookDetailsDto(book,bookRelease);
+        return bookCreateDTO.getAuthor() + " " + bookCreateDTO.getTitle() + " was successfully added.";
+    }
+
+
+    public String deleteBook(BookDeleteDTO bookDeleteDTO){
+
+        Book book = bookRepository.findByAuthorAndTitle(bookDeleteDTO.getAuthor(), bookDeleteDTO.getTitle())
+                .orElseThrow(() -> new BookException(BookError.BOOK_RELEASE_NOT_FOUND));
+
+        bookRepository.delete(book);
+
+        return book.getAuthor() + " " + book.getTitle() + " has been deleted.";
     }
 }

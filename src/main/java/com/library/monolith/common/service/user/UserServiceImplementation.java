@@ -5,10 +5,7 @@ import com.library.monolith.common.exception.user.UserException;
 import com.library.monolith.common.mapping.user.LibraryUserDetailsDtoMapper;
 import com.library.monolith.common.mapping.user.LibraryUserOverviewDtoMapper;
 import com.library.monolith.common.mapping.user.LibraryUserRegistrationDtoMapper;
-import com.library.monolith.common.model.dto.user.LibraryUserDeleteDTO;
-import com.library.monolith.common.model.dto.user.LibraryUserDetailsDTO;
-import com.library.monolith.common.model.dto.user.LibraryUserOverviewDTO;
-import com.library.monolith.common.model.dto.user.LibraryUserRegistrationDTO;
+import com.library.monolith.common.model.dto.user.*;
 import com.library.monolith.common.model.entity.user.Address;
 import com.library.monolith.common.model.entity.user.LibraryUser;
 import com.library.monolith.common.model.entity.user.LibraryUserVersion;
@@ -39,6 +36,7 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
     private final RoleRepository roleRepository;
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     public LibraryUserDetailsDTO getLibraryUserDetailsDto(Long id) {
         LibraryUserVersion libraryUserVersion = libraryUserVersionRepository.findById(id).orElseThrow(() -> {
@@ -75,7 +73,7 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public LibraryUserOverviewDTO addUser(LibraryUserRegistrationDTO registrationDTO){
+    public LibraryUserOverviewDTO registerUser(LibraryUserRegistrationDTO registrationDTO){
         LibraryUserRegistrationDtoMapper getInstance = LibraryUserRegistrationDtoMapper.getInstance();
         LibraryUser libraryUser = getInstance.toLibraryUser(registrationDTO);
 
@@ -86,27 +84,32 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
         libraryUserRepository.save(libraryUser);
 
         LibraryUserVersion libraryUserVersion = getInstance.toLibraryUserVersion(registrationDTO);
+        libraryUserVersion.setLibraryUser(libraryUser);
         libraryUserVersionRepository.save(libraryUserVersion);
 
         Address address = getInstance.toAddress(registrationDTO);
+        address.setLibraryUserVersion(libraryUserVersion);
         addressRepository.save(address);
 
         return LibraryUserOverviewDtoMapper.getInstance().toLibraryUserOverviewDto(libraryUser,libraryUserVersion);
     }
 
-    public void deleteUser(LibraryUserDeleteDTO deleteDTO){
+    public String deleteUser(LibraryUserDeleteDTO deleteDTO){
         LibraryUser libraryUser = libraryUserRepository.findByUsernameAndLibraryCode(deleteDTO.getUsername()
-                , deleteDTO.getLibraryCode()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                , deleteDTO.getLibraryCode()).orElseThrow(() -> new UsernameNotFoundException(UserError.LIBRARY_USER_NOT_FOUND.name()));
 
         libraryUserRepository.delete(libraryUser);
+
+        return libraryUser.getUsername() + " with library code " + libraryUser.getLibraryCode() + " was deleted";
     }
 
-    public void editUser(LibraryUserRegistrationDTO registrationDTO){
+    public String editUser(String username, LibraryUserUpdateDTO libraryUserUpdateDTO){
 
-        LibraryUser libraryUser = libraryUserRepository.findByUsername(registrationDTO.getUsername()
-        ).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        EditUserLogic editUserLogic = new EditUserLogic(libraryUserRepository,libraryUserVersionRepository);
+        editUserLogic.editUser(username,libraryUserUpdateDTO);
 
-        li
+        return "User " + username + " was edited";
     }
+
 }
 

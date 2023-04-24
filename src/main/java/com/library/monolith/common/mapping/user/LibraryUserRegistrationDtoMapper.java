@@ -7,7 +7,6 @@ import com.library.monolith.common.model.entity.user.LibraryUserVersion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
 
 @Mapper
 public interface LibraryUserRegistrationDtoMapper {
@@ -35,8 +34,8 @@ public interface LibraryUserRegistrationDtoMapper {
     @Mapping(target = "libraryCode", expression = "java(new java.util.Random().nextLong(900000000) + 100000000)")
     LibraryUser toLibraryUser(LibraryUserRegistrationDTO libraryUserRegistrationDto);
 
-    @Mapping(target = "start_validity", expression = "java(java.sql.Timestamp.from(java.time.Instant.now()))")
-    @Mapping(target = "end_validity", expression = "java(java.sql.Timestamp.from(java.time.Instant.now().plus(java.time.Duration.ofDays(180))))")
+    @Mapping(target = "startValidity", expression = "java(java.sql.Timestamp.from(java.time.Instant.now()))")
+    @Mapping(target = "endValidity", expression = "java(java.sql.Timestamp.from(java.time.Instant.now().plus(java.time.Duration.ofDays(180))))")
     LibraryUserVersion toLibraryUserVersion(LibraryUserRegistrationDTO libraryUserRegistrationDto);
 
     Address toAddress(LibraryUserRegistrationDTO libraryUserRegistrationDTO);
