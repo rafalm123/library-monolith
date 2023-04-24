@@ -86,7 +86,8 @@ public class BookServiceImplementation implements BookService {
 
 
     public String deleteBook(BookDeleteDTO bookDeleteDTO){
-        Book book = bookRepository.findByAuthorAndTitle(bookDeleteDTO.getAuthor(), bookDeleteDTO.getAuthor())
+
+        Book book = bookRepository.findByAuthorAndTitle(bookDeleteDTO.getAuthor(), bookDeleteDTO.getTitle())
                 .orElseThrow(() -> new BookException(BookError.BOOK_RELEASE_NOT_FOUND));
 
         bookRepository.delete(book);
