@@ -1,44 +1,70 @@
 package com.library.monolith.common.repository.user;
 
 import com.library.monolith.common.model.entity.user.LibraryUser;
+import lombok.AllArgsConstructor;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.annotation.Rollback;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(value = false)
-class LibraryUserRepositoryTest {
+@AllArgsConstructor
+public class LibraryUserRepositoryTest {
 
-    @Autowired
-    private LibraryUserRepository libraryUserRepo;
-    @Autowired
-    private RoleRepository roleRepo;
+    private final LibraryUserRepository libraryUserRepository;
 
     @Test
-    void itShouldCreateUser() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        LibraryUser.Builder builder = new LibraryUser.Builder();
-        builder.setUsername("user111");
-        builder.setPassword(passwordEncoder.encode("password111"));
-        builder.setCreateDate(Timestamp.from(Instant.now()));
-        builder.setLibraryCode(3213213L);
-        builder.setLibraryUserVersions(null);
-        builder.addRole(roleRepo.findByName("REGULAR"));
+    void findByUsername() {
+        LibraryUser user = new LibraryUser();
+        user.setUsername("testuser");
+        user.setPassword("testpassword");
+        user.setLibraryCode(123456L);
+        user.setCreateDate(Timestamp.from(Instant.now()));
 
-        LibraryUser libraryUser = builder.build();
-        LibraryUser save = libraryUserRepo.save(libraryUser);
+        libraryUserRepository.save(user);
 
-        assertThat(save).isNotNull();
-        assertThat(save.getId()).isGreaterThan(0);
+        Optional<LibraryUser> optionalUser = libraryUserRepository.findByUsername("testuser");
+
+        Assertions.assertTrue(optionalUser.isPresent());
+        Assertions.assertEquals(user, optionalUser.get());
     }
+
+    @Test
+    void findByLibraryCode() {
+        LibraryUser user = new LibraryUser();
+        user.setUsername("testuser");
+        user.setPassword("testpassword");
+        user.setLibraryCode(123456L);
+        user.setCreateDate(Timestamp.from(Instant.now()));
+
+        libraryUserRepository.save(user);
+
+        Optional<LibraryUser> optionalUser = libraryUserRepository.findByLibraryCode(123456L);
+
+        Assertions.assertTrue(optionalUser.isPresent());
+        Assertions.assertEquals(user, optionalUser.get());
+    }
+
+    @Test
+    void findByUsernameAndLibraryCode() {
+        LibraryUser user = new LibraryUser();
+        user.setUsername("testuser");
+        user.setPassword("testpassword");
+        user.setLibraryCode(123456L);
+        user.setCreateDate(Timestamp.from(Instant.now()));
+
+        libraryUserRepository.save(user);
+
+        Optional<LibraryUser> optionalUser = libraryUserRepository.findByUsernameAndLibraryCode("testuser", 123456L);
+
+        Assertions.assertTrue(optionalUser.isPresent());
+        Assertions.assertEquals(user, optionalUser.get());
+    }
+
 }

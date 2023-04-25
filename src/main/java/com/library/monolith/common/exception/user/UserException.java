@@ -7,4 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserException extends RuntimeException {
     private UserError userError;
+
+
 }

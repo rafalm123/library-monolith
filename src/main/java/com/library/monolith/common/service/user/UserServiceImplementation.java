@@ -9,15 +9,11 @@ import com.library.monolith.common.model.dto.user.*;
 import com.library.monolith.common.model.entity.user.Address;
 import com.library.monolith.common.model.entity.user.LibraryUser;
 import com.library.monolith.common.model.entity.user.LibraryUserVersion;
-import com.library.monolith.common.model.entity.user.Role;
 import com.library.monolith.common.repository.user.AddressRepository;
 import com.library.monolith.common.repository.user.LibraryUserRepository;
 import com.library.monolith.common.repository.user.LibraryUserVersionRepository;
 import com.library.monolith.common.repository.user.RoleRepository;
-import com.library.monolith.common.service.user.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,9 +35,9 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
 
 
     public LibraryUserDetailsDTO getLibraryUserDetailsDto(Long id) {
-        LibraryUserVersion libraryUserVersion = libraryUserVersionRepository.findById(id).orElseThrow(() -> {
-            throw new UserException(UserError.LIBRARY_USER_VERSION_NOT_FOUND);
-        });
+        LibraryUserVersion libraryUserVersion = libraryUserVersionRepository.findById(id)
+                .orElseThrow(() -> new UserException(UserError.LIBRARY_USER_VERSION_NOT_FOUND));
+
         return LibraryUserDetailsDtoMapper.getInstance().toLibraryUserDetailsDto(
                 libraryUserVersion.getLibraryUser(), libraryUserVersion, libraryUserVersion.getAddress());
     }

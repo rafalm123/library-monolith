@@ -26,11 +26,6 @@ public class BookController {
         return ResponseEntity.ok(bookServiceImplementation.getBookOverviewDtoList());
     }
 
-    @GetMapping("/pagination")
-    public ResponseEntity<Page<BookOverviewDTO>> getBookOverviewDtosPage(@RequestBody BookOverviewQueryDTO queryDto){
-        return ResponseEntity.ok(bookServiceImplementation.getBookOverviewPage(queryDto));
-    }
-
     @PostMapping("/add")
     public ResponseEntity<String> addBook(@RequestBody BookCreateDTO bookCreateDTO){
         return ResponseEntity.ok(bookServiceImplementation.addBook(bookCreateDTO));
