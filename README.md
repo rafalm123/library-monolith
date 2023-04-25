@@ -8,24 +8,26 @@ Library Monolith is a web application that serves as a digital library for manag
 - Data protection using DTO Design Pattern
 - CRUD operations of searching books and users
 - JWT Token Authentication
+- Unit testing
 
 
 ## Future Development
 - Book Borrowing System
-- Testing
 - Frontend
 
 ## Getting Started
 1. Clone the repository from GitLab:
-
 
     git clone https://gitlab.com/librarians1/library-monolith.git
 
 2. Execute this script from project root directory with command: sh local/startDb.sh on windows use git bash for unix syntax
    or manually console
 
+   docker run --name libraryContainer -p 5432:5432 -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=library -d postgres
 
-    docker run --name libraryContainer -p 5432:5432 -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=library -d postgres
+   then in application.yml running the application on: 
+
+   jpa: hibernate: ddl-auto: validate
 
 3. Access the application:
    Open a web browser and navigate to http://localhost:8080 to access the Library Monolith application.
@@ -42,3 +44,4 @@ Technologies Used
 - PostgreSQL
 - Thymeleaf
 - JUnit and Mockito
+- Lombok
