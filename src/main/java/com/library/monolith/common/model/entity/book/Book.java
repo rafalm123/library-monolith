@@ -10,9 +10,7 @@ import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "book", uniqueConstraints = @UniqueConstraint(columnNames = {"author", "title"}))
 public class Book extends BaseEntity {
@@ -27,16 +25,4 @@ public class Book extends BaseEntity {
     @ToString.Exclude
     private List<BookRelease> bookReleases;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Book book = (Book) o;
-        return getId() != null && Objects.equals(getId(), book.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

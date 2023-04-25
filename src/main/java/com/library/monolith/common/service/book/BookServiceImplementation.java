@@ -17,9 +17,6 @@ import com.library.monolith.common.repository.book.ReleaseCopyVersionRepository;
 import com.library.monolith.common.repository.user.LibraryUserRepository;
 import lombok.AllArgsConstructor;
 import lombok.val;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,11 +53,6 @@ public class BookServiceImplementation implements BookService {
         return bookReleases.stream().map(bookRelease ->
              BookOverviewDtoMapper.getInstance().toBookOverviewDto(bookRelease.getBook(), bookRelease)
         ).collect(Collectors.toList());
-    }
-
-    public Page<BookOverviewDTO> getBookOverviewPage(BookOverviewQueryDTO queryDto){
-        List<BookOverviewDTO> list = getBookOverviewDtoList();
-        return new PageImpl<>(list,PageRequest.of(queryDto.getPage(), queryDto.getPageSize()), list.size());
     }
 
     public String addBook(BookCreateDTO bookCreateDTO){

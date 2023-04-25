@@ -13,8 +13,6 @@ public interface BookService {
 
     List<BookOverviewDTO> getBookOverviewDtoList();
 
-    Page<BookOverviewDTO> getBookOverviewPage(BookOverviewQueryDTO queryDto);
-
     String addBook (BookCreateDTO bookCreateDTO);
 
     String deleteBook (BookDeleteDTO bookDeleteDTO);
