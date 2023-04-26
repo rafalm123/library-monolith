@@ -1,24 +1,28 @@
 package com.library.monolith.common.model.entity.book;
 
-import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @EqualsAndHashCode
-@Table(name = "release_copy")
-public class ReleaseCopy extends BaseEntity {
+@SequenceGenerator(name = "entiy_id_seq", sequenceName = "entiy_id_seq", allocationSize = 10)
+public class ReleaseCopy {
 
-    @Column(name="cover_type")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entiy_id_seq")
+    private Long id;
+
+    @Column(name = "cover_type")
     private String coverType;
     @ManyToOne
-    @JoinColumn(name = "book_release_id",referencedColumnName = "id")
+    @JoinColumn(name = "book_release_id", referencedColumnName = "id")
     private BookRelease bookRelease;
-    @OneToMany(mappedBy = "releaseCopy",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "releaseCopy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReleaseCopyVersion> releaseCopyVersions;
 }

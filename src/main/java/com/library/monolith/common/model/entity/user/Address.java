@@ -1,7 +1,6 @@
 package com.library.monolith.common.model.entity.user;
 
 
-import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,13 +8,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Entity
 @Builder
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "address")
-public class Address extends BaseEntity {
+@SequenceGenerator(name = "entiy_id_seq", sequenceName = "entiy_id_seq", allocationSize = 10)
+public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entiy_id_seq")
+    private Long id;
 
     @Column(name = "street")
     private String street;
@@ -28,7 +31,7 @@ public class Address extends BaseEntity {
     @Column(name = "country")
     private String country;
     @OneToOne
-    @JoinColumn(name = "library_user_version_id",referencedColumnName = "id")
+    @JoinColumn(name = "library_user_version_id", referencedColumnName = "id")
     private LibraryUserVersion libraryUserVersion;
 
     public Address(String street, String city, String state, String postalCode, String country) {

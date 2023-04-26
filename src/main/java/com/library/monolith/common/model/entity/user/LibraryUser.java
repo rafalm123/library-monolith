@@ -1,6 +1,5 @@
 package com.library.monolith.common.model.entity.user;
 
-import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +18,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
-@Table(name = "library_user")
-public class LibraryUser extends BaseEntity implements UserDetails{
+@SequenceGenerator(name = "entiy_id_seq", sequenceName = "entiy_id_seq", allocationSize = 10)
+public class LibraryUser implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entiy_id_seq")
+    private Long id;
 
     @Column(name = "username")
     private String username;
@@ -28,14 +31,14 @@ public class LibraryUser extends BaseEntity implements UserDetails{
     private String password;
     @Column(name = "create_date")
     private Timestamp createDate;
-    @Column(name = "library_code",unique = true)
+    @Column(name = "library_code", unique = true)
     private Long libraryCode;
-    @OneToMany(mappedBy = "libraryUser",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "libraryUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LibraryUserVersion> libraryUserVersions;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
-            joinColumns = @JoinColumn(name="user_id"),
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();

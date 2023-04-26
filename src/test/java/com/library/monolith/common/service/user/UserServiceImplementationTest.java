@@ -22,7 +22,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -50,10 +50,28 @@ public class UserServiceImplementationTest {
 
     @BeforeEach
     public void setUp() {
-        role = new Role("REGULAR");
-        user = new LibraryUser("testuser", "password", null, 111111111L, null, Collections.singleton(role));
-        userVersion = new LibraryUserVersion("Piotr", "Nowak", "pnowak", "pnowak@gmail.com", null, null, null, user, null);
-        address = new Address("Warszawska", "Rzeszow", "Podkarpacie", "35555", "Poland", userVersion);
+        role = Role.builder().name("REGULAR").build();
+        user = LibraryUser.builder()
+                .username("testuser")
+                .password("testuser")
+                .libraryCode(111111111L)
+                .roles(Set.of(role))
+                .build();
+        userVersion = LibraryUserVersion.builder()
+                .name("Piotr")
+                .surname("Nowak")
+                .nickname("piter")
+                .email("pnowak@gmail.com")
+                .libraryUser(user)
+                .build();
+        address = Address.builder()
+                .street("Warszawska")
+                .city("Rzeszow")
+                .state("Podkarpackie") // stejt XD
+                .postalCode("35555")
+                .country("Poland")
+                .libraryUserVersion(userVersion)
+                .build();
         userVersion.setAddress(address);
         user.setLibraryUserVersions(Collections.singletonList(userVersion));
     }
@@ -71,7 +89,7 @@ public class UserServiceImplementationTest {
         assertThat(result.getLibraryCode()).isEqualTo(111111111L);
         assertThat(result.getStreet()).isEqualTo("Warszawska");
         assertThat(result.getCity()).isEqualTo("Rzeszow");
-        assertThat(result.getState()).isEqualTo("Podkarpacie");
+        assertThat(result.getState()).isEqualTo("Podkarpackie");
         assertThat(result.getPostalCode()).isEqualTo("35555");
         assertThat(result.getCountry()).isEqualTo("Poland");
     }

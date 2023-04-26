@@ -1,6 +1,5 @@
 package com.library.monolith.common.model.entity.user;
 
-import com.library.monolith.common.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +15,12 @@ import java.time.Instant;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "library_user_version")
-public class LibraryUserVersion extends BaseEntity {
+@SequenceGenerator(name = "entiy_id_seq", sequenceName = "entiy_id_seq", allocationSize = 10)
+public class LibraryUserVersion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entiy_id_seq")
+    private Long id;
 
     @Column(name = "user_name")
     private String name;
@@ -30,20 +33,20 @@ public class LibraryUserVersion extends BaseEntity {
     @Column(name = "debt")
     private BigDecimal debt;
     @Column(name = "start_validity")
-    private Timestamp startValidity= Timestamp.from(Instant.now());
+    private Timestamp startValidity = Timestamp.from(Instant.now());
     @Column(name = "end_validity")
     private Timestamp endValidity;
     @ManyToOne
-    @JoinColumn(name = "library_user_id",referencedColumnName = "id")
+    @JoinColumn(name = "library_user_id", referencedColumnName = "id")
     private LibraryUser libraryUser;
-    @OneToOne(mappedBy = "libraryUserVersion",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToOne(mappedBy = "libraryUserVersion", cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
 
     public LibraryUserVersion(String name,
                               String surname,
                               String nickname,
                               String email
-                              ) {
+    ) {
         this.name = name;
         this.surname = surname;
         this.nickname = nickname;

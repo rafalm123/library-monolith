@@ -1,18 +1,21 @@
 package com.library.monolith.common.model.entity.user;
 
-import com.library.monolith.common.model.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "role")
-public class Role extends BaseEntity{
+@RequiredArgsConstructor
+@SequenceGenerator(name = "entiy_id_seq", sequenceName = "entiy_id_seq", allocationSize = 10)
+public class Role {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entiy_id_seq")
+    private Long id;
 
     @Column(name = "name")
     private String name;
